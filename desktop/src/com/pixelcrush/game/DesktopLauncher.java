@@ -2,7 +2,6 @@ package com.pixelcrush.game;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.pixelcrush.game.PixelCrush;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -10,6 +9,6 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("PixelCrush");
-		new Lwjgl3Application(new PixelCrush(), config);
+		new Lwjgl3Application(new PixelCrushCore(), config);
 	}
 }
