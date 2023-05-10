@@ -2,15 +2,13 @@ package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
-    private SpriteBatch batch = new SpriteBatch();
-    private Texture playerTexture = new Texture("Player/character-sprite-002.png");
-    private Vector2 position = new Vector2(0,0);
+    public Texture playerTexture = new Texture("Player/character-sprite-002.png");
+    public Vector2 position = new Vector2(0,0);
     private float walkSpeed = 100;
     private float runSpeed = 120;
 
@@ -37,17 +35,5 @@ public class Player {
         }
         else if(wPressed || sPressed) position.y += velocity * (sPressed ? -1 : 1);
         else if (aPressed || dPressed) position.x += velocity * (aPressed ? -1 : 1);
-
-        // System.out.println(posBefore.sub(position.x, position.y));
     }
-
-    public void render(){
-
-        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(playerTexture, position.x, position.y);
-        batch.end();
-    }
-
 }
