@@ -20,8 +20,6 @@ public class GameScene extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        // Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
         player.handleInput(delta);
