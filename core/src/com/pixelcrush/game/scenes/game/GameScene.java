@@ -1,21 +1,19 @@
 package com.pixelcrush.game.scenes.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScene extends ScreenAdapter {
 
-    Camera cam;
+    Camera camera;
     SpriteBatch batch;
     Player player;
 
     public GameScene() {
         player = new Player();
         batch = new SpriteBatch();
-        cam = new Camera(player);
+        camera = new Camera(player);
     }
 
     @Override
@@ -24,13 +22,19 @@ public class GameScene extends ScreenAdapter {
 
         player.handleInput(delta);
 
-        cam.camFollowPlayer();
+        camera.camFollowPlayer();
 
-        cam.update();
-        batch.setProjectionMatrix(cam.getCombinedMatrix());
+        camera.update();
+        batch.setProjectionMatrix(camera.getCombinedMatrix());
 
         batch.begin();
         batch.draw(player.playerTexture, player.position.x, player.position.y);
         batch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        camera.handleResize(width, height);
     }
 }
