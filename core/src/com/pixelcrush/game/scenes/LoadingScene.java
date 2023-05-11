@@ -39,8 +39,20 @@ public class LoadingScene extends ScreenAdapter {
         Texture frame = videoPlayer.getTexture();
         if (frame != null) {
             batch.begin();
-            batch.draw(frame, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            int h = Gdx.graphics.getHeight();
+            int w = Gdx.graphics.getWidth();
+
+            if (h < w) h = (9 * w) / 16;
+            else w = (16 * h) / 9;
+
+            batch.draw(frame, 0, (Gdx.graphics.getHeight() - h) / 2f, w, h);
             batch.end();
         }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
     }
 }
