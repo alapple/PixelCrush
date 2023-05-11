@@ -16,7 +16,7 @@ public class Player {
     private static final float runSpeed = 120;
 
     public Player() {
-        atlas = new TextureAtlas(Gdx.files.internal("Player/player.atlas"));
+        atlas = new TextureAtlas(Gdx.files.internal("player/player.atlas"));
     }
 
     public void handleInput(float delta) {
