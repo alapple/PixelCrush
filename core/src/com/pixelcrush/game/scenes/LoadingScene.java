@@ -32,8 +32,6 @@ public class LoadingScene extends ScreenAdapter {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        // PixelCrushCore.manager.load("LoadingScreen/loading-screen.png", Texture.class);
     }
 
     @Override
