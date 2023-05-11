@@ -14,7 +14,7 @@ public class LoadingScene extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
 
         if (PixelCrushCore.manager.update()){
             PixelCrushCore.INSTANCE.setScreen(new GameScene());

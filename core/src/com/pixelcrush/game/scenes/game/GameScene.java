@@ -20,7 +20,7 @@ public class GameScene extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+        ScreenUtils.clear(0, 0, 0, 1);
 
         player.handleInput(delta);
 
