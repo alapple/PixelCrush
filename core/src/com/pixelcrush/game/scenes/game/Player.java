@@ -22,7 +22,7 @@ public class Player {
 
 
     public void handleInput(float delta) {
-        float velocity = walkSpeed * delta;
+        float velocity = (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) ? runSpeed : walkSpeed) * delta;
         boolean wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
         boolean sPressed = Gdx.input.isKeyPressed(Input.Keys.S);
         boolean dPressed = Gdx.input.isKeyPressed(Input.Keys.D);
