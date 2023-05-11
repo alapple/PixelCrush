@@ -28,7 +28,6 @@ public class Player {
         boolean dPressed = Gdx.input.isKeyPressed(Input.Keys.D);
         boolean aPressed = Gdx.input.isKeyPressed(Input.Keys.A);
 
-        Vector2 posBefore = new Vector2(position.x, position.y);
         if ((wPressed && dPressed) || (wPressed && aPressed) || (sPressed && dPressed) || (sPressed && aPressed)) {
             position.y += velocity / 2 * (sPressed ? -1 : 1);
             position.x += velocity / 2 * (aPressed ? -1 : 1);
