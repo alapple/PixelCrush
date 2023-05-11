@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.setIdleFPS(30);
 		config.setForegroundFPS(60);
 
-		config.setTitle("PixelCrush");
+		config.setTitle("Of Archery And Skeletons");
 		config.useVsync(true);
 		new Lwjgl3Application(new PixelCrushCore(), config);
 	}
