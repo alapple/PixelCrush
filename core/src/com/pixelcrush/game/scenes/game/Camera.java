@@ -16,8 +16,8 @@ public class Camera {
     }
 
     public void camFollowPlayer() {
-        camera.position.x = player.getPositionX();
-        camera.position.y = player.getPositionY();
+        camera.position.x = player.position.x;
+        camera.position.y = player.position.y;
         camera.update();
     }
 

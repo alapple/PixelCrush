@@ -28,7 +28,7 @@ public class GameScene extends ScreenAdapter {
         batch.setProjectionMatrix(camera.getCombinedMatrix());
 
         batch.begin();
-        batch.draw(player.playerTexture, player.position.x, player.position.y);
+        player.sprite.draw(batch);
         batch.end();
     }
 
