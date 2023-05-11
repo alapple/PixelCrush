@@ -28,7 +28,7 @@ public class LoadingScene extends ScreenAdapter {
         });
 
         try {
-            videoPlayer.play(Gdx.files.internal("LoadingScreen/anim.ogv"));
+            videoPlayer.play(Gdx.files.internal("LoadingScreen/anim_2.ogv"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
