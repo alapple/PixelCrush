@@ -4,16 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
-    public Sprite sprite = new Sprite(new Texture("Player/character-sprite-002.png"));
-    public Vector2 position = new Vector2(0,0);
-    private float walkSpeed = 100;
-    private float runSpeed = 120;
+    private TextureAtlas atlas;
+    public Sprite sprite = new Sprite();
+    public Vector2 position = new Vector2(0, 0);
+
+    private static final float walkSpeed = 100;
+    private static final float runSpeed = 120;
 
     public Player() {
-        sprite.scale(3);
+        atlas = new TextureAtlas(Gdx.files.internal("Player/player.atlas"));
     }
 
     public void handleInput(float delta) {
@@ -26,9 +29,19 @@ public class Player {
         if ((wPressed && dPressed) || (wPressed && aPressed) || (sPressed && dPressed) || (sPressed && aPressed)) {
             position.y += velocity / 2 * (sPressed ? -1 : 1);
             position.x += velocity / 2 * (aPressed ? -1 : 1);
-        }
-        else if(wPressed || sPressed) position.y += velocity * (sPressed ? -1 : 1);
-        else if (aPressed || dPressed) position.x += velocity * (aPressed ? -1 : 1);
+        } else if (wPressed) {
+            sprite.setRegion(atlas.findRegion("up"));
+            position.y += velocity;
+        } else if (sPressed) {
+            sprite.setRegion(atlas.findRegion("down"));
+            position.y -= velocity;
+        } else if (aPressed) {
+            sprite.setRegion(atlas.findRegion("left"));
+            position.x -= velocity;
+        } else if (dPressed) {
+            sprite.setRegion(atlas.findRegion("right"));
+            position.x += velocity;
+        } else sprite = atlas.createSprite("idle");
 
         sprite.setPosition(position.x, position.y);
     }
