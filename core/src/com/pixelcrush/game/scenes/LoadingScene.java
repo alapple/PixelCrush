@@ -2,7 +2,6 @@ package com.pixelcrush.game.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -18,12 +17,9 @@ public class LoadingScene extends ScreenAdapter {
     private VideoPlayer videoPlayer = VideoPlayerCreator.createVideoPlayer();
 
     public LoadingScene() {
-        videoPlayer.setOnCompletionListener(new VideoPlayer.CompletionListener() {
-            @Override
-            public void onCompletionListener(FileHandle file) {
-                if (PixelCrushCore.manager.update()) {
-                    PixelCrushCore.INSTANCE.setScreen(new GameScene());
-                }
+        videoPlayer.setOnCompletionListener(file -> {
+            if (PixelCrushCore.manager.update()) {
+                PixelCrushCore.INSTANCE.setScreen(new GameScene());
             }
         });
 

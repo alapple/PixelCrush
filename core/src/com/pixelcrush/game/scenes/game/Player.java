@@ -2,18 +2,16 @@ package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
-    private TextureAtlas atlas;
-    public Sprite sprite = new Sprite();
-    public Vector2 position = new Vector2(0, 0);
-
     private static final float walkSpeed = 100;
     private static final float runSpeed = 120;
+    public Sprite sprite = new Sprite();
+    public Vector2 position = new Vector2(0, 0);
+    private TextureAtlas atlas;
 
     public Player() {
         atlas = new TextureAtlas(Gdx.files.internal("player/player.atlas"));
