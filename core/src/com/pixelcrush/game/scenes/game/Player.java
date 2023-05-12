@@ -14,7 +14,7 @@ public class Player {
     private TextureAtlas atlas;
 
     public Player() {
-        atlas = new TextureAtlas(Gdx.files.internal("player/player.atlas"));
+        atlas = new TextureAtlas(Gdx.files.internal("output/player.atlas"));
     }
 
     public void handleInput(float delta) {
