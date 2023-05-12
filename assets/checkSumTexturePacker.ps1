@@ -1,4 +1,4 @@
-$checkSumLocation = "./assets/other/program-files/texture-packer-checksum.txt"
+$checkSumLocation = "./other/program-files/texture-packer-checksum.txt"
 $checkSumFileExists = Test-Path -Path $checkSumLocation -PathType Leaf
 if ($checkSumFileExists -eq $false)
 {
@@ -8,12 +8,12 @@ $lastChecksumInput, $lastChecksumOutput = Get-Content -Path $checkSumLocation
 $checkSumInput = 0
 $checkSumOutput = 0
 
-foreach ($size in Get-ChildItem -Recurse ./assets/input  | Select-Object -Property Length)
+foreach ($size in Get-ChildItem -Recurse ./input  | Select-Object -Property Length)
 {
     $checkSumInput += [int]$size.Length
 }
 
-foreach ($size in Get-ChildItem -Recurse ./assets/output  | Select-Object -Property Length)
+foreach ($size in Get-ChildItem -Recurse ./output  | Select-Object -Property Length)
 {
     $checkSumOutput += [int]$size.Length
 }
@@ -21,15 +21,15 @@ foreach ($size in Get-ChildItem -Recurse ./assets/output  | Select-Object -Prope
 if ($checkSumInput -ne $lastChecksumInput -or $checkSumOutput -ne $lastChecksumOutput)
 {
     Write-Host "Checksums don't match... Re-compiling texture atlas"
-    Remove-Item -Force -Recurse ./assets/output
+    Remove-Item -Force -Recurse ./output
 
-    foreach ($dir in Get-ChildItem ./assets/input)
+    foreach ($dir in Get-ChildItem ./input)
     {
-        java -cp ./assets/other/program-files/runnable-texturepacker.jar com.badlogic.gdx.tools.texturepacker.TexturePacker ./assets/input/$dir ./assets/output $dir
+        java -cp ./other/program-files/runnable-texturepacker.jar com.badlogic.gdx.tools.texturepacker.TexturePacker ./input/$dir ./output $dir
     }
 }
 
-$checkSumInput | Out-File -FilePath ./assets/other/program-files/texture-packer-checksum.txt
-$checkSumOutput | Out-File -Append -FilePath ./assets/other/program-files/texture-packer-checksum.txt
+$checkSumInput | Out-File -FilePath ./other/program-files/texture-packer-checksum.txt
+$checkSumOutput | Out-File -Append -FilePath ./other/program-files/texture-packer-checksum.txt
 
 Write-Host "done!"
