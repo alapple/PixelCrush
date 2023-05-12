@@ -1,0 +1,89 @@
+
+graphics.png
+size: 128, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+placeholder/idle
+  rotate: false
+  xy: 2, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+placeholder/placeholder-down
+  rotate: false
+  xy: 20, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+placeholder/placeholder-left
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+placeholder/placeholder-right
+  rotate: false
+  xy: 56, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+placeholder/placeholder-up
+  rotate: false
+  xy: 74, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+
+graphics2.png
+size: 64, 64
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+player/character-sprite-002
+  rotate: false
+  xy: 2, 22
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player/down
+  rotate: false
+  xy: 2, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player/idle
+  rotate: false
+  xy: 36, 38
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player/left
+  rotate: false
+  xy: 20, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player/right
+  rotate: false
+  xy: 38, 20
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+player/up
+  rotate: false
+  xy: 38, 2
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
