@@ -1,4 +1,5 @@
 ## Java
+assets/other/program-files/texture-packer-checksum.txt
 
 *_AME
 *.ogv.xmp
@@ -115,3 +116,4 @@ Thumbs.db
 /ios/xcode/native/
 /ios/IOSLauncher.app
 /ios/IOSLauncher.app.dSYM
+/assets/output/
