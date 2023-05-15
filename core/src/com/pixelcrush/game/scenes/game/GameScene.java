@@ -1,6 +1,7 @@
 package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -29,6 +30,9 @@ public class GameScene extends ScreenAdapter {
 
         batch.begin();
         player.sprite.draw(batch);
+        for (Sprite hearth : player.healthBar.getHearthsSprites()) {
+            hearth.draw(batch);
+        }
         batch.end();
     }
 
