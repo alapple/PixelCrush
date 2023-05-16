@@ -1,19 +1,17 @@
 package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScene extends ScreenAdapter {
-
     Camera camera;
-    SpriteBatch batch;
     Player player;
+    Stage stage;
 
     public GameScene() {
+        stage = new Stage();
         player = new Player();
-        batch = new SpriteBatch();
         camera = new Camera(player);
     }
 
@@ -26,19 +24,23 @@ public class GameScene extends ScreenAdapter {
         camera.camFollowPlayer();
 
         camera.update();
-        batch.setProjectionMatrix(camera.getCombinedMatrix());
+        stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
 
-        batch.begin();
-        player.sprite.draw(batch);
-        for (Sprite hearth : player.healthBar.getHearthsSprites()) {
-            hearth.draw(batch);
-        }
-        batch.end();
+        stage.getBatch().begin();
+
+        player.healthBar.getImages().forEach(image -> {
+            stage.addActor(image);
+        });
+
+        player.sprite.draw(stage.getBatch());
+        stage.getBatch().end();
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
         camera.handleResize(width, height);
+        stage.getViewport().update(width, height, true);
     }
 }

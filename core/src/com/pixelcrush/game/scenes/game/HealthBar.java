@@ -3,6 +3,9 @@ package com.pixelcrush.game.scenes.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+import java.util.ArrayList;
 
 public class HealthBar {
     private int maxHealth = 10;
@@ -17,6 +20,19 @@ public class HealthBar {
         emptyHearth = atlas.createSprite("hearth-empty");
         halfHearth = atlas.createSprite("hearth-half");
         fullHearth = atlas.createSprite("hearth-full");
+    }
+
+    public ArrayList<Image> getImages() {
+        ArrayList<Image> images = new ArrayList<>();
+        Sprite[] hearthsSprites = getHearthsSprites();
+        for (int i = 0; i < hearthsSprites.length; i++) {
+            Sprite sprite = hearthsSprites[i];
+            Image img = new Image(sprite);
+            img.setPosition(i == 0 ? 5 : img.getWidth() + 10, 5);
+            images.add(img);
+        }
+
+        return images;
     }
 
     public Sprite[] getHearthsSprites() {

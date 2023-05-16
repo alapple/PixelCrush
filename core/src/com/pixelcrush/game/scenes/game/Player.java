@@ -13,10 +13,11 @@ public class Player {
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
     public int health = 10;
-    public HealthBar healthBar = new HealthBar();
+    public HealthBar healthBar;
 
     public Player() {
         atlas = new TextureAtlas(Gdx.files.internal("output/player.atlas"));
+        healthBar = new HealthBar();
     }
 
     public void handleInput(float delta) {
@@ -60,8 +61,6 @@ public class Player {
             sprite.setRegion(atlas.findRegion("right"));
             position.x += velocity;
         }else sprite = atlas.createSprite("idle");
-
-
 
         sprite.setPosition(position.x, position.y);
     }
