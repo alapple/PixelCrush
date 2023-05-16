@@ -1,5 +1,40 @@
 {
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "untitled.tmx",
     "expandedProjectPaths": [
         "."
-    ]
+    ],
+    "fileStates": {
+        "tiles.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        },
+        "untitled.tmx": {
+            "scale": 8,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 682.4375,
+                "y": 375.3125
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/iljar/dev/contributions/pixel-crush/assets/other/maptiles",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 50,
+    "openFiles": [
+        "tiles.tsx",
+        "untitled.tmx"
+    ],
+    "project": "of-archery-and-skeletons.tiled-project",
+    "recentFiles": [
+        "tiles.tsx",
+        "untitled.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 1
 }

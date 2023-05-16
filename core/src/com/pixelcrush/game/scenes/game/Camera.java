@@ -15,6 +15,10 @@ public class Camera {
         this.player = player;
     }
 
+    public OrthographicCamera getInternalCamera() {
+        return camera;
+    }
+
     public void camFollowPlayer() {
         camera.position.x = player.position.x;
         camera.position.y = player.position.y;
