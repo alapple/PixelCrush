@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Scaling;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,9 @@ public class HealthBar {
         for (int i = 0; i < hearthsSprites.length; i++) {
             Sprite sprite = hearthsSprites[i];
             Image img = new Image(sprite);
-            img.setPosition(i == 0 ? 5 : img.getWidth() + 10, 5);
+            img.setScaling(Scaling.contain);
+            img.scaleBy(4f);
+            img.setPosition(i == 0 ? 10 : img.getWidth() * 4 + 25, 10);
             images.add(img);
         }
 
