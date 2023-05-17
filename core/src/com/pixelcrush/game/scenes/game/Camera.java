@@ -32,6 +32,7 @@ public class Camera {
     public void handleResize(int width, int height) {
         camera.viewportHeight = height;
         camera.viewportWidth = width;
+        camera.update();
     }
 
     public Matrix4 getCombinedMatrix() {

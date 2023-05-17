@@ -15,9 +15,9 @@ public class GameScene extends ScreenAdapter {
     OrthogonalTiledMapRenderer mapRenderer;
 
     public GameScene() {
-        stage = new Stage();
         player = new Player();
         camera = new Camera(player);
+        stage = new Stage(/*new FitViewport(0, 0, camera.getInternalCamera())*/);
 
         TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
@@ -36,9 +36,7 @@ public class GameScene extends ScreenAdapter {
         mapRenderer.setView((OrthographicCamera) stage.getCamera());
 
         stage.getBatch().begin();
-        player.healthBar.getImages().forEach(image -> {
-            stage.addActor(image);
-        });
+        player.healthBar.getImages().forEach(image -> stage.addActor(image));
 
         player.sprite.draw(stage.getBatch());
         stage.getBatch().end();
@@ -51,6 +49,8 @@ public class GameScene extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         camera.handleResize(width, height);
+        stage.getViewport().setWorldSize(width, height);
+        mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
     }
 }
