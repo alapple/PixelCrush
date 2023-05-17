@@ -14,6 +14,9 @@
   <image width="32" height="32" source="../../maptiles/Map-Tile-Grass-004.png"/>
  </tile>
  <tile id="4">
+  <properties>
+   <property name="speedModifier" type="float" value="10"/>
+  </properties>
   <image width="32" height="32" source="../../maptiles/Map-Tile-path-001.png"/>
  </tile>
  <tile id="5">
