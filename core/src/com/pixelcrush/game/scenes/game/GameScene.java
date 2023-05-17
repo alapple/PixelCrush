@@ -38,6 +38,7 @@ public class GameScene extends ScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         player.handleInput(delta);
+        applyPlayerSpeedModifierOnPath();
 
         camera.camFollowPlayer();
         camera.update();
@@ -62,7 +63,7 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.begin(ShapeRenderer.ShapeType.Line);
 
         debugRenderer.setColor(Color.RED);
-        Rectangle playerBounds = new Rectangle(player.position.x, player.position.y, player.sprite.getWidth(), player.sprite.getHeight());
+        Rectangle playerBounds = player.getPlayerBounds();
         debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
 
         debugRenderer.setColor(Color.YELLOW);
@@ -79,10 +80,7 @@ public class GameScene extends ScreenAdapter {
                         Rectangle cellCollider = new Rectangle(x, y, 1, 1);
 
                         debugRenderer.setColor(Color.GREEN);
-                        if (cellCollider.overlaps(playerBounds)) {
-                            Gdx.app.debug("GameScene : renderDebug() : collision", "detected collision!");
-                            debugRenderer.setColor(Color.RED);
-                        }
+                        if (cellCollider.overlaps(playerBounds)) debugRenderer.setColor(Color.RED);
 
                         debugRenderer.rect(
                                 cellCollider.x,
@@ -95,6 +93,27 @@ public class GameScene extends ScreenAdapter {
             }
         }
         debugRenderer.end();
+    }
+
+    public void applyPlayerSpeedModifierOnPath() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+
+        Rectangle playerBounds = player.getPlayerBounds();
+        for (int y = 0; y <= layer.getTileHeight(); y++) {
+            for (int x = 0; x <= layer.getTileWidth(); x++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                if (cell != null) {
+                    if (camera.getInternalCamera().frustum.boundsInFrustum(x + 1.5f, y + 0.5f, 0, 1, 1, 0)) {
+                        Rectangle cellCollider = new Rectangle(x, y, 1, 1);
+
+                        if (cellCollider.overlaps(playerBounds)) {
+                            player.speedModifier = 2;
+                            return;
+                        } else player.speedModifier = 0;
+                    }
+                }
+            }
+        }
     }
 
     @Override
