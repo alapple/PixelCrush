@@ -13,6 +13,7 @@ import com.badlogic.gdx.video.VideoPlayer;
 import com.badlogic.gdx.video.VideoPlayerCreator;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.GameScene;
+import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 import java.io.FileNotFoundException;
 
@@ -28,6 +29,13 @@ public class LoadingScene extends ScreenAdapter {
         PixelCrushCore.manager.load("output/heart.atlas", TextureAtlas.class);
         PixelCrushCore.manager.load("data/uiskin.json", Skin.class);
         map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
+
+        try {
+            EnemyManager.getInstance().loadAllEnemies(Gdx.files.internal("data/enemies").path());
+        } catch (Exception e) {
+            System.err.println("cannot load enemies: ERR");
+            e.printStackTrace();
+        }
 
         videoPlayer.setOnCompletionListener(file -> videoCompleted = true);
         try {

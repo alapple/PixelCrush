@@ -13,8 +13,14 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class EnemyManager {
+    private static EnemyManager INSTANCE;
     public Gson gson = new Gson();
     public ArrayList<SerializedEnemy> enemyTypes = new ArrayList<>();
+
+    public synchronized static EnemyManager getInstance() {
+        if (INSTANCE == null) INSTANCE = new EnemyManager();
+        return INSTANCE;
+    }
 
     public ArrayList<File> getFilesRecursively(String path) throws IOException {
         ArrayList<File> files = new ArrayList<>();
