@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
-    private static final float walkSpeed = 100;
-    private static final float runSpeed = 120;
+    private static final float walkSpeed = 6;
+    private static final float runSpeed = 12;
     private TextureAtlas atlas;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
