@@ -25,28 +25,35 @@ public class HealthBar {
 
     public ArrayList<Image> getImages() {
         ArrayList<Image> images = new ArrayList<>();
-        Sprite[] heartsSprites = getHeartsSprites();
-        for (int i = 0; i < heartsSprites.length; i++) {
-            Sprite sprite = heartsSprites[i];
+        ArrayList<Sprite> heartsSprites = getHeartsSprites();
+
+        float lastX = 10;
+        for (int i = 0; i < heartsSprites.size(); i++) {
+            Sprite sprite = heartsSprites.get(i);
             Image img = new Image(sprite);
+
             img.setScaling(Scaling.contain);
             img.scaleBy(4f);
-            img.setPosition(i == 0 ? 10 : img.getWidth() * 4 + 25, 10);
-            images.add(img);
-        }
+            // img.getWidth() * 4 * i + 25 + i * 6
+            img.setPosition(i == 0 ? lastX : lastX + img.getWidth() + 40, 10);
 
+            images.add(img);
+
+            lastX += img.getX() - lastX;
+        }
         return images;
     }
 
-    public Sprite[] getHeartsSprites() {
-        Sprite[] hearts = new Sprite[maxHealth];
+    public ArrayList<Sprite> getHeartsSprites() {
+        ArrayList<Sprite> hearts = new ArrayList<>();
 
         for (int i = 0; i < Math.floor(health / 2f); i++) {
-            hearts[i] = fullHeart;
+            hearts.add(fullHeart);
         }
-        if (health % 2 != 0) hearts[(int) Math.ceil(health / 2f)] = halfHeart;
-        for (int i = 0; i < hearts.length; i++) {
-            if (hearts[i] == null) hearts[i] = fullHeart;
+        if (health % 2 != 0) hearts.set((int) Math.ceil(health / 2f), halfHeart);
+        for (int i = 0; i < maxHealth; i++) {
+            if (i + 1 < hearts.size() || i + 1 > hearts.size()) continue;
+            if (hearts.get(i) == null) hearts.add(fullHeart);
         }
         return hearts;
     }

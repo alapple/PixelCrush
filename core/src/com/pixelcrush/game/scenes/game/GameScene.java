@@ -40,6 +40,8 @@ public class GameScene extends ScreenAdapter {
             System.err.println("cannot load enemies: ERR");
             e.printStackTrace();
         }
+
+        player.healthBar.getImages().forEach(image -> stage.addActor(image));
     }
 
     @Override
@@ -56,8 +58,6 @@ public class GameScene extends ScreenAdapter {
         mapRenderer.render();
 
         stage.getBatch().begin();
-        player.healthBar.getImages().forEach(image -> stage.addActor(image));
-
         player.sprite.draw(stage.getBatch());
         stage.getBatch().end();
 
