@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
@@ -23,6 +24,7 @@ public class GameScene extends ScreenAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private ShapeRenderer debugRenderer;
     private EnemyManager enemyManager = new EnemyManager();
+    private DebugUI debugUI;
 
     public GameScene() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -42,6 +44,8 @@ public class GameScene extends ScreenAdapter {
         }
 
         player.healthBar.getImages().forEach(image -> stage.addActor(image));
+
+        if (DEBUG_RENDER) debugUI = new DebugUI(stage);
     }
 
     @Override
@@ -63,7 +67,10 @@ public class GameScene extends ScreenAdapter {
 
         stage.draw();
 
-        if (DEBUG_RENDER) renderDebug();
+        if (DEBUG_RENDER) {
+            debugUI.updateFPSText();
+            renderDebug();
+        }
     }
 
     private void renderDebug() {
@@ -131,6 +138,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
+        if(DEBUG_RENDER) debugUI.handleResize(width, height);
     }
 
     @Override
