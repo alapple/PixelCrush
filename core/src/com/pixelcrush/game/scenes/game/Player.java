@@ -24,6 +24,9 @@ public class Player {
     public Player() {
         atlas = new TextureAtlas(Gdx.files.internal("output/player.atlas"));
         healthBar = new HealthBar();
+
+        // handleinput has to be called once so idle is applied
+        handleInput(0);
         bounds = new Rectangle(0, 0, sprite.getWidth(), sprite.getHeight());
     }
 
