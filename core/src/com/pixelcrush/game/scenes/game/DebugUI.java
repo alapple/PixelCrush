@@ -4,9 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.pixelcrush.game.PixelCrushCore;
 
 public class DebugUI {
-    private final Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+    private final Skin uiSkin = PixelCrushCore.manager.get("data/uiskin.json");
     private final Label fpsLabel = new Label("Collecting...", uiSkin);
 
     public DebugUI(Stage stage) {

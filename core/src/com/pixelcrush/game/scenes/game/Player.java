@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.pixelcrush.game.PixelCrushCore;
 
 public class Player {
     public static final float WALK_SPEED = 6;
@@ -22,7 +23,7 @@ public class Player {
     public Rectangle bounds;
 
     public Player() {
-        atlas = new TextureAtlas(Gdx.files.internal("output/player.atlas"));
+        atlas = PixelCrushCore.manager.get("output/player.atlas");
         healthBar = new HealthBar();
 
         // handleinput has to be called once so idle is applied

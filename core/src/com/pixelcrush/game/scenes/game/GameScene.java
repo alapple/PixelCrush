@@ -25,9 +25,8 @@ public class GameScene extends ScreenAdapter {
     private final EnemyManager enemyManager = new EnemyManager();
     private final DebugUI debugUI;
 
-    public GameScene() {
+    public GameScene(TiledMap map) {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
 
         player = new Player();

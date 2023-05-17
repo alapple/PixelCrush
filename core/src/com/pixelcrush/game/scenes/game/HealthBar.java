@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Scaling;
+import com.pixelcrush.game.PixelCrushCore;
 
 import java.util.ArrayList;
 
 public class HealthBar {
     private final int maxHealth = 10;
     private final int health = maxHealth;
-    private final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("output/heart.atlas"));
+    private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
     private Sprite emptyHeart = new Sprite();
     private Sprite halfHeart = new Sprite();
     private Sprite fullHeart = new Sprite();
