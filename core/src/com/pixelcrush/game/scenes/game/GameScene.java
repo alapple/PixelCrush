@@ -1,46 +1,108 @@
 package com.pixelcrush.game.scenes.game;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScene extends ScreenAdapter {
+    private float downScaleFactor = 32f;
+    private static final boolean DEBUG_RENDER = true;
     Camera camera;
     Player player;
     Stage stage;
+    OrthogonalTiledMapRenderer mapRenderer;
+    ShapeRenderer debugRenderer;
 
     public GameScene() {
-        stage = new Stage();
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
+
         player = new Player();
         camera = new Camera(player);
+        stage = new Stage();
+
+        debugRenderer = new ShapeRenderer();
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-
         player.handleInput(delta);
 
         camera.camFollowPlayer();
-
         camera.update();
         stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
 
-        stage.getBatch().begin();
+        mapRenderer.setView(camera.getInternalCamera());
+        mapRenderer.render();
 
-        player.healthBar.getImages().forEach(image -> {
-            stage.addActor(image);
-        });
+        stage.getBatch().begin();
+        player.healthBar.getImages().forEach(image -> stage.addActor(image));
 
         player.sprite.draw(stage.getBatch());
         stage.getBatch().end();
+
         stage.draw();
+
+        if (DEBUG_RENDER) renderDebug();
+    }
+
+    private void renderDebug() {
+        debugRenderer.setProjectionMatrix(camera.getInternalCamera().combined);
+        debugRenderer.begin(ShapeRenderer.ShapeType.Line);
+
+        debugRenderer.setColor(Color.RED);
+        Rectangle playerBounds = new Rectangle(player.position.x, player.position.y, player.sprite.getWidth(), player.sprite.getHeight());
+        debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
+
+        debugRenderer.setColor(Color.YELLOW);
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+
+        for (int y = 0; y <= layer.getTileHeight(); y++) {
+            for (int x = 0; x <= layer.getTileWidth(); x++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+
+                debugRenderer.setColor(Color.GREEN);
+
+                if (cell != null) {
+                    if (camera.getInternalCamera().frustum.boundsInFrustum(x + 1.5f, y + 0.5f, 0, 1, 1, 0)) {
+                        Rectangle cellCollider = new Rectangle(x, y, 1, 1);
+
+                        debugRenderer.setColor(Color.GREEN);
+                        if (cellCollider.overlaps(playerBounds)) {
+                            Gdx.app.debug("GameScene : renderDebug() : collision", "detected collision!");
+                            debugRenderer.setColor(Color.RED);
+                        }
+
+                        debugRenderer.rect(
+                                cellCollider.x,
+                                cellCollider.y,
+                                cellCollider.width,
+                                cellCollider.height
+                        );
+                    }
+                }
+            }
+        }
+        debugRenderer.end();
     }
 
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
         camera.handleResize(width, height);
+        stage.getViewport().setWorldSize(width, height);
+        mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
     }
 }
