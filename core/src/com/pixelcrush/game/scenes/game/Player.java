@@ -68,4 +68,8 @@ public class Player {
     public boolean overlapsWith(Rectangle rect) {
         return getPlayerBounds().overlaps(rect);
     }
+
+    public void dispose() {
+        atlas.dispose();
+    }
 }

@@ -17,10 +17,10 @@ import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 public class GameScene extends ScreenAdapter {
     private float downScaleFactor = 32f;
     private static final boolean DEBUG_RENDER = true;
-    Camera camera;
-    Player player;
-    Stage stage;
-    OrthogonalTiledMapRenderer mapRenderer;
+    private Camera camera;
+    private Player player;
+    private Stage stage;
+    private OrthogonalTiledMapRenderer mapRenderer;
     private ShapeRenderer debugRenderer;
     private EnemyManager enemyManager = new EnemyManager();
 
@@ -131,5 +131,14 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        mapRenderer.dispose();
+        stage.dispose();
+        debugRenderer.dispose();
+        player.dispose();
     }
 }
