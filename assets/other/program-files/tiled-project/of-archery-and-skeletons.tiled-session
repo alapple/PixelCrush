@@ -8,23 +8,29 @@
         "."
     ],
     "fileStates": {
+        "d.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
         "tiles.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 8
         },
         "untitled.tmx": {
-            "scale": 1,
-            "selectedLayer": 0,
+            "scale": 0.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 455,
-                "y": 537.5
+                "x": 984,
+                "y": 1061
             }
         }
     },
     "last.imagePath": "C:/Users/iljar/dev/contributions/pixel-crush/assets/other/maptiles",
     "map.height": 50,
     "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
         "tiles.tsx",
@@ -34,6 +40,7 @@
     "property.type": "float",
     "recentFiles": [
         "tiles.tsx",
+        "d.tsx",
         "untitled.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",

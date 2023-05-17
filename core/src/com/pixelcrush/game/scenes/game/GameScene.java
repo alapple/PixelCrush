@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.Random;
 
 public class GameScene extends ScreenAdapter {
+    private float downScaleFactor = 32f;
     private static final boolean DEBUG_RENDER = true;
     Camera camera;
     Player player;
@@ -22,7 +23,7 @@ public class GameScene extends ScreenAdapter {
 
     public GameScene() {
         TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
 
         player = new Player();
         camera = new Camera(player);

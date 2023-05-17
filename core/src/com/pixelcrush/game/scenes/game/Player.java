@@ -45,6 +45,6 @@ public class Player {
         } else sprite = atlas.createSprite("idle");
 
         sprite.setPosition(position.x, position.y);
-        sprite.setSize(2, 2);
+        sprite.setSize(1, 1);
     }
 }

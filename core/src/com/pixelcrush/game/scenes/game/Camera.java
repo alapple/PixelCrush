@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 
 public class Camera {
-    private float downScaleFactor = 16f;
+    private float downScaleFactor = 48f;
 
     private OrthographicCamera camera;
     private Player player;
