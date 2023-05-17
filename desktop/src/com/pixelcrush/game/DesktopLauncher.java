@@ -1,5 +1,6 @@
 package com.pixelcrush.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -9,7 +10,6 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setIdleFPS(30);
 		config.setForegroundFPS(60);
-
 		config.setTitle("Of Archery And Skeletons");
 		config.useVsync(true);
 		new Lwjgl3Application(new PixelCrushCore(), config);
