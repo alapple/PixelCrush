@@ -1,5 +1,7 @@
 package com.pixelcrush.game.scenes.game;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -7,10 +9,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import java.util.Random;
 
 public class GameScene extends ScreenAdapter {
     private float downScaleFactor = 32f;
@@ -22,6 +23,7 @@ public class GameScene extends ScreenAdapter {
     ShapeRenderer debugRenderer;
 
     public GameScene() {
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
         TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
 
@@ -60,9 +62,9 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.begin(ShapeRenderer.ShapeType.Line);
 
         debugRenderer.setColor(Color.RED);
-        debugRenderer.rect(player.position.x, player.position.y, player.sprite.getWidth(), player.sprite.getHeight());
+        Rectangle playerBounds = new Rectangle(player.position.x, player.position.y, player.sprite.getWidth(), player.sprite.getHeight());
+        debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
 
-        Random rng = new Random();
         debugRenderer.setColor(Color.YELLOW);
         TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
 
@@ -70,19 +72,23 @@ public class GameScene extends ScreenAdapter {
             for (int x = 0; x <= layer.getTileWidth(); x++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(x, y);
 
-                Color c = new Color();
-                c.r = rng.nextInt(1, 255);
-                c.g = rng.nextInt(1, 255);
-                c.b = rng.nextInt(1, 255);
-                debugRenderer.setColor(c);
+                debugRenderer.setColor(Color.GREEN);
 
                 if (cell != null) {
                     if (camera.getInternalCamera().frustum.boundsInFrustum(x + 1.5f, y + 0.5f, 0, 1, 1, 0)) {
+                        Rectangle cellCollider = new Rectangle(x, y, 1, 1);
+
+                        debugRenderer.setColor(Color.GREEN);
+                        if (cellCollider.overlaps(playerBounds)) {
+                            Gdx.app.debug("GameScene : renderDebug() : collision", "detected collision!");
+                            debugRenderer.setColor(Color.RED);
+                        }
+
                         debugRenderer.rect(
-                                x,
-                                y,
-                                1,
-                                1
+                                cellCollider.x,
+                                cellCollider.y,
+                                cellCollider.width,
+                                cellCollider.height
                         );
                     }
                 }
