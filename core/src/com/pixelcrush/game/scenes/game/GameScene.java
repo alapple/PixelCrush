@@ -35,7 +35,7 @@ public class GameScene extends ScreenAdapter {
 
         debugRenderer = new ShapeRenderer();
         try {
-            enemyManager.loadAllEnemies("C:/Users/iljar/dev/contributions/pixel-crush/data/enemies");
+            enemyManager.loadAllEnemies(Gdx.files.internal("data/enemies").path());
         } catch (Exception e) {
             System.err.println("cannot load enemies: ERR");
             e.printStackTrace();
