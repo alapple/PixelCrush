@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DesktopLauncher" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="com.pixelcrush.game.DesktopLauncher" />
-    <module name="pixel-crush.desktop.main" />
+    <module name="PixelCrush.desktop.main" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.pixelcrush.game.scenes.*" />
