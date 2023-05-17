@@ -4,8 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.pixelcrush.game.scenes.LoadingScene;
 
-import java.io.IOException;
-
 public class PixelCrushCore extends Game {
     public static AssetManager manager;
     public static PixelCrushCore INSTANCE;
