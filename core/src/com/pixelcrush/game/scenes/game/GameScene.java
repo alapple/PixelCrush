@@ -2,11 +2,13 @@ package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class GameScene extends ScreenAdapter {
     Camera camera;
@@ -17,11 +19,10 @@ public class GameScene extends ScreenAdapter {
     public GameScene() {
         player = new Player();
         camera = new Camera(player);
-        stage = new Stage(/*new FitViewport(0, 0, camera.getInternalCamera())*/);
+        stage = new Stage();
 
         TiledMap map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
-        // mapRenderer.setView(camera.getInternalCamera());
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1.25f);
     }
 
     @Override
@@ -33,7 +34,8 @@ public class GameScene extends ScreenAdapter {
         camera.update();
         stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
 
-        mapRenderer.setView((OrthographicCamera) stage.getCamera());
+        mapRenderer.setView(camera.getInternalCamera());
+        mapRenderer.render();
 
         stage.getBatch().begin();
         player.healthBar.getImages().forEach(image -> stage.addActor(image));
@@ -41,7 +43,6 @@ public class GameScene extends ScreenAdapter {
         player.sprite.draw(stage.getBatch());
         stage.getBatch().end();
 
-        mapRenderer.render();
         stage.draw();
     }
 
