@@ -14,10 +14,12 @@ public class Player {
     public Vector2 position = new Vector2(0, 0);
     public int health = 10;
     public HealthBar healthBar;
+    public Rectangle bounds;
 
     public Player() {
         atlas = new TextureAtlas(Gdx.files.internal("output/player.atlas"));
         healthBar = new HealthBar();
+        bounds = new Rectangle(0, 0, sprite.getWidth(), sprite.getHeight());
     }
 
     public void handleInput(float delta) {
@@ -46,5 +48,14 @@ public class Player {
 
         sprite.setPosition(position.x, position.y);
         sprite.setSize(1, 1);
+    }
+
+    public Rectangle getPlayerBounds() {
+        bounds.setPosition(position);
+        return bounds;
+    }
+
+    public boolean overlapsWith(Rectangle rect) {
+        return getPlayerBounds().overlaps(rect);
     }
 }
