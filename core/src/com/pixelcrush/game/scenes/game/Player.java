@@ -34,7 +34,7 @@ public class Player {
         boolean dPressed = Gdx.input.isKeyPressed(Input.Keys.D);
         boolean aPressed = Gdx.input.isKeyPressed(Input.Keys.A);
 
-        Gdx.app.debug("handleInput", "velocity: %f; speedModifier: %f".formatted(velocity, speedModifier));
+        // Gdx.app.debug("handleInput", "velocity: %f; speedModifier: %f".formatted(velocity, speedModifier));
 
         if ((wPressed && dPressed) || (wPressed && aPressed) || (sPressed && dPressed) || (sPressed && aPressed)) {
             position.y += velocity / 2 * (sPressed ? -1 : 1);
