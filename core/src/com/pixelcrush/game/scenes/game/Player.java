@@ -4,11 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
-    private static final float walkSpeed = 6;
-    private static final float runSpeed = 12;
+    public static final float WALK_SPEED = 6;
+    public static final float RUN_SPEED = 12;
+
+    private static float walkSpeed = WALK_SPEED;
+    private static float runSpeed = RUN_SPEED;
+    public float speedModifier = 0;
     private TextureAtlas atlas;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
@@ -23,11 +28,13 @@ public class Player {
     }
 
     public void handleInput(float delta) {
-        float velocity = (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) ? runSpeed : walkSpeed) * delta;
+        float velocity = ((Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) ? runSpeed : walkSpeed) + speedModifier) * delta;
         boolean wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
         boolean sPressed = Gdx.input.isKeyPressed(Input.Keys.S);
         boolean dPressed = Gdx.input.isKeyPressed(Input.Keys.D);
         boolean aPressed = Gdx.input.isKeyPressed(Input.Keys.A);
+
+        // Gdx.app.debug("handleInput", "velocity: %f; speedModifier: %f".formatted(velocity, speedModifier));
 
         if ((wPressed && dPressed) || (wPressed && aPressed) || (sPressed && dPressed) || (sPressed && aPressed)) {
             position.y += velocity / 2 * (sPressed ? -1 : 1);

@@ -1,0 +1,15 @@
+{
+  "speed": 10,
+  "firstStage": 2,
+  "stageProbability": [
+    1,
+    0.5,
+    0.1
+  ],
+  "name": "Biter",
+  "textureAtlas": ".atlas",
+  "damage": 10,
+  "attackType": "MELEE",
+  "rechargeTime": 2,
+  "attackRadius": 10
+}
