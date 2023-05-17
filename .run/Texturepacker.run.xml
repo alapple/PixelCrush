@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Texturepacker" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="C:\Users\iljar\dev\contributions\pixel-crush\assets\checkSumTexturePacker.ps1" workingDirectory="C:\Users\iljar\dev\contributions\pixel-crush\assets" executablePath="$PROJECT_DIR$/../../../../../Windows/System32/WindowsPowerShell/v1.0/powershell.exe">
+  <configuration default="false" name="Texturepacker" type="PowerShellRunType" factoryName="PowerShell" scriptUrl="C:\Users\iljar\dev\contributions\pixel-crush\assets\checkSumTexturePacker.ps1" workingDirectory="$ProjectFileDir$\assets" executablePath="$PROJECT_DIR$/../../../../../Windows/System32/WindowsPowerShell/v1.0/powershell.exe">
     <envs />
     <method v="2" />
   </configuration>
