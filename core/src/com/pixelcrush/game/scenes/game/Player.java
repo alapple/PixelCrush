@@ -11,10 +11,10 @@ public class Player {
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
 
-    private static float walkSpeed = WALK_SPEED;
-    private static float runSpeed = RUN_SPEED;
+    private static final float walkSpeed = WALK_SPEED;
+    private static final float runSpeed = RUN_SPEED;
+    private final TextureAtlas atlas;
     public float speedModifier = 0;
-    private TextureAtlas atlas;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
     public int health = 10;

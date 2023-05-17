@@ -11,20 +11,19 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
-    private float downScaleFactor = 32f;
     private static final boolean DEBUG_RENDER = true;
-    private Camera camera;
-    private Player player;
-    private Stage stage;
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private ShapeRenderer debugRenderer;
-    private EnemyManager enemyManager = new EnemyManager();
-    private DebugUI debugUI;
+    private final float downScaleFactor = 32f;
+    private final Camera camera;
+    private final Player player;
+    private final Stage stage;
+    private final OrthogonalTiledMapRenderer mapRenderer;
+    private final ShapeRenderer debugRenderer;
+    private final EnemyManager enemyManager = new EnemyManager();
+    private final DebugUI debugUI;
 
     public GameScene() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
@@ -138,7 +137,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
-        if(DEBUG_RENDER) debugUI.handleResize(width, height);
+        if (DEBUG_RENDER) debugUI.handleResize(width, height);
     }
 
     @Override

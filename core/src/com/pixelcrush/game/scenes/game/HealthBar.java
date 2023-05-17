@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.Scaling;
 import java.util.ArrayList;
 
 public class HealthBar {
-    private int maxHealth = 10;
-    private int health = maxHealth;
+    private final int maxHealth = 10;
+    private final int health = maxHealth;
+    private final TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("output/heart.atlas"));
     private Sprite emptyHeart = new Sprite();
     private Sprite halfHeart = new Sprite();
     private Sprite fullHeart = new Sprite();
-    private TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("output/heart.atlas"));
 
 
     public HealthBar() {

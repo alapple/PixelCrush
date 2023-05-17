@@ -5,10 +5,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
 
 public class Camera {
+    private final OrthographicCamera camera;
+    private final Player player;
     private float downScaleFactor = 48f;
-
-    private OrthographicCamera camera;
-    private Player player;
 
     public Camera(Player player) {
         camera = new OrthographicCamera();

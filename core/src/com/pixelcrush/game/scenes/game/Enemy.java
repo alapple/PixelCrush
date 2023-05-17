@@ -5,22 +5,21 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 public class Enemy {
+    private final Vector2 position = new Vector2(0, 0);
+    private final Circle detectionRadius;
+    Player player;
     private float maxVelocity;
-    private Vector2 position = new Vector2(0,0);
     private int health;
     private int damage;
-    Player player;
-    private Circle detectionRadius;
 
-    public Enemy(){
+    public Enemy() {
         player = new Player();
         detectionRadius = new Circle(position, 2);
 
     }
 
 
-
-    public void followPlayer(float delta){
+    public void followPlayer(float delta) {
         float velocity = maxVelocity * delta;
         if (Intersector.overlaps(detectionRadius, player.getPlayerBounds())) {
             Vector2 enemyPos = new Vector2(position);

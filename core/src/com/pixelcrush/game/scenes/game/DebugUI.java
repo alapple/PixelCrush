@@ -1,15 +1,13 @@
 package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DebugUI {
-    private Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
-    private Label fpsLabel = new Label("Collecting...", uiSkin);
+    private final Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+    private final Label fpsLabel = new Label("Collecting...", uiSkin);
 
     public DebugUI(Stage stage) {
         stage.addActor(fpsLabel);

@@ -13,8 +13,8 @@ import com.pixelcrush.game.scenes.game.GameScene;
 import java.io.FileNotFoundException;
 
 public class LoadingScene extends ScreenAdapter {
-    private SpriteBatch batch = new SpriteBatch();
-    private VideoPlayer videoPlayer = VideoPlayerCreator.createVideoPlayer();
+    private final SpriteBatch batch = new SpriteBatch();
+    private final VideoPlayer videoPlayer = VideoPlayerCreator.createVideoPlayer();
 
     public LoadingScene() {
         videoPlayer.setOnCompletionListener(file -> {

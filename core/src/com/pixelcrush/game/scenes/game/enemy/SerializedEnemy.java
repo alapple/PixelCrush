@@ -1,7 +1,5 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import java.util.ArrayList;
 
 enum AttackType {
