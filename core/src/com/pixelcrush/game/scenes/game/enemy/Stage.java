@@ -1,4 +1,6 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
-public record Stage(int stage, int minEnemies, int maxEnemies) {
+import org.jetbrains.annotations.Range;
+
+public record Stage(@Range(from = 1, to = Integer.MAX_VALUE) int stage, int minEnemies, int maxEnemies) {
 }
