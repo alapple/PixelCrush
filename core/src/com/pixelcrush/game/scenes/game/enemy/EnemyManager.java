@@ -1,7 +1,6 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
 import com.google.gson.Gson;
-import com.pixelcrush.game.scenes.game.Enemy;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,8 +12,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.Stream;
-
-;
 
 public class EnemyManager {
     private static EnemyManager INSTANCE;
