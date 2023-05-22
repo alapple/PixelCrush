@@ -42,6 +42,8 @@ public class GameScene extends ScreenAdapter {
 
         player.healthBar.getImages().forEach(image -> stage.addActor(image));
 
+        enemyManager.spawnEnemiesForStage(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
+
         if (DEBUG_RENDER) debugUI = new DebugUI(stage);
     }
 
