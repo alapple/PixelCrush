@@ -6,14 +6,12 @@ import com.badlogic.gdx.math.Matrix4;
 
 public class Camera {
     private final OrthographicCamera camera;
-    private final Player player;
     private float downScaleFactor = 48f;
 
-    public Camera(Player player) {
+    public Camera() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 16f, Gdx.graphics.getHeight() / 16f);
         camera.update();
-        this.player = player;
     }
 
     public OrthographicCamera getInternalCamera() {
@@ -21,8 +19,8 @@ public class Camera {
     }
 
     public void camFollowPlayer() {
-        camera.position.x = player.position.x;
-        camera.position.y = player.position.y;
+        camera.position.x = GameScene.player.position.x;
+        camera.position.y = GameScene.player.position.y;
         camera.update();
     }
 

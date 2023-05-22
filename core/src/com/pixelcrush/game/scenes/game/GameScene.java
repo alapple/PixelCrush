@@ -17,7 +17,7 @@ public class GameScene extends ScreenAdapter {
     private static final boolean DEBUG_RENDER = true;
     private final float downScaleFactor = 32f;
     private final Camera camera;
-    private static Player player = null;
+    public static Player player = null;
     private final Stage stage;
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final ShapeRenderer debugRenderer;
@@ -29,7 +29,7 @@ public class GameScene extends ScreenAdapter {
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
 
         player = new Player();
-        camera = new Camera(player);
+        camera = new Camera();
         stage = new Stage();
 
         debugRenderer = new ShapeRenderer();
