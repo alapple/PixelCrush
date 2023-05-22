@@ -11,13 +11,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class EnemyManager {
     private static EnemyManager INSTANCE;
     public Gson gson = new Gson();
     public ArrayList<SerializedEnemy> enemyTypes = new ArrayList<>();
-    public ArrayList<SerializedEnemy> enemies = new ArrayList<>();
+    public ArrayList<Enemy> enemies = new ArrayList<>();
 
     public synchronized static EnemyManager getInstance() {
         if (INSTANCE == null) INSTANCE = new EnemyManager();
@@ -35,7 +36,7 @@ public class EnemyManager {
         Random rng = new Random();
         int upperBoundEnemyType = enemyTypes.size() - 1;
         while (true) {
-            if (stage.maxEnemies() >= enemies.size()) break;
+            if (stage.maxEnemies() <= enemies.size()) break;
             if (stage.minEnemies() <= enemies.size() && rng.nextBoolean()) break;
 
             enemies.add(possibleSpawnTypes.get(rng.nextInt(0, upperBoundEnemyType)));
@@ -43,7 +44,7 @@ public class EnemyManager {
 
         System.out.printf("Spawned %d enemies with an upper bound of %d and a min of %d%n", enemies.size(), stage.minEnemies(), stage.maxEnemies());
 
-        this.enemies = enemies;
+        this.enemies = enemies.stream().map(SerializedEnemy::toEnemy).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public ArrayList<File> getFilesRecursively(String path) throws IOException {
