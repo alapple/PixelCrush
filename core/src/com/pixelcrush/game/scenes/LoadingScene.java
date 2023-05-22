@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.video.VideoPlayer;
 import com.badlogic.gdx.video.VideoPlayerCreator;
+import com.pixelcrush.game.DebugConfig;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.GameScene;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
@@ -48,7 +49,7 @@ public class LoadingScene extends ScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
 
-        if (PixelCrushCore.manager.update() && videoCompleted) {
+        if (PixelCrushCore.manager.update() && (videoCompleted || DebugConfig.SKIP_LOADING)) {
             PixelCrushCore.INSTANCE.setScreen(new GameScene(map));
             return;
         }

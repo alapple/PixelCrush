@@ -11,10 +11,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.pixelcrush.game.DebugConfig;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
-    private static final boolean DEBUG_RENDER = true;
     private final float downScaleFactor = 32f;
     private final Camera camera;
     public static Player player = null;
@@ -43,8 +43,7 @@ public class GameScene extends ScreenAdapter {
         player.healthBar.getImages().forEach(image -> stage.addActor(image));
 
         enemyManager.spawnEnemiesForStage(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
-
-        if (DEBUG_RENDER) debugUI = new DebugUI(stage);
+        if (DebugConfig.DEBUG_RENDER) debugUI = new DebugUI(stage);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class GameScene extends ScreenAdapter {
 
         stage.draw();
 
-        if (DEBUG_RENDER) {
+        if (DebugConfig.DEBUG_RENDER) {
             debugUI.updateFPSText();
             renderDebug();
         }
@@ -137,7 +136,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
-        if (DEBUG_RENDER) debugUI.handleResize(width, height);
+        if (DebugConfig.DEBUG_RENDER) debugUI.handleResize(width, height);
     }
 
     @Override
