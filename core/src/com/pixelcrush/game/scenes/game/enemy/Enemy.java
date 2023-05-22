@@ -7,17 +7,16 @@ import com.pixelcrush.game.scenes.game.GameScene;
 
 public class Enemy {
     private Vector2 position = new Vector2();
-    private SerializedEnemy enemyData;
+    private SerializedEnemy data;
     private Circle detectionCircle;
 
-    public Enemy(SerializedEnemy enemyData) {
-        detectionCircle = new Circle(position, enemyData.followRadius);
-        this.enemyData = enemyData;
+    public Enemy(SerializedEnemy data) {
+        this.data = data;
+        detectionCircle = new Circle(position, data.followRadius);
     }
 
-
     public void followPlayer(float delta) {
-        float velocity = enemyData.speed * delta;
+        float velocity = data.speed * delta;
 
         if (Intersector.overlaps(detectionCircle, GameScene.player.getPlayerBounds())) {
             Vector2 enemyPos = new Vector2(position);
