@@ -17,7 +17,7 @@ public class GameScene extends ScreenAdapter {
     private static final boolean DEBUG_RENDER = true;
     private final float downScaleFactor = 32f;
     private final Camera camera;
-    private final Player player;
+    private static Player player = null;
     private final Stage stage;
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final ShapeRenderer debugRenderer;
