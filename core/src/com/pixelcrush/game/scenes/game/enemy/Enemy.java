@@ -58,8 +58,6 @@ public class Enemy {
 
             position.x += direction.x * velocity;
             position.y += direction.y * velocity;
-
-            System.out.println(position);
         }
 
         sprite.setOriginCenter();
