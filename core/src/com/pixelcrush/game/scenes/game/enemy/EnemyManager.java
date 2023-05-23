@@ -41,7 +41,7 @@ public class EnemyManager {
             if (stage.maxEnemies() <= enemies.size()) break;
             if (stage.minEnemies() <= enemies.size() && rng.nextBoolean()) break;
 
-            enemies.add(possibleSpawnTypes.get(rng.nextInt(0, upperBoundEnemyType)));
+            enemies.add(possibleSpawnTypes.get(possibleSpawnTypes.size() == 1 ? 0 : rng.nextInt(0, upperBoundEnemyType)));
         }
 
         System.out.printf("Spawned %d enemies with an upper bound of %d and a min of %d%n", enemies.size(), stage.minEnemies(), stage.maxEnemies());
