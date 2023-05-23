@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.PixelCrushCore;
+import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
 public class Player {
     public static final float WALK_SPEED = 6;
@@ -21,6 +22,7 @@ public class Player {
     public int health = 10;
     public HealthBar healthBar;
     public Rectangle bounds;
+    public BaseBow bow;
 
     public Player() {
         atlas = PixelCrushCore.manager.get("output/player.atlas");
