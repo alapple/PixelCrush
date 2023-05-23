@@ -19,7 +19,7 @@ public class Enemy {
     public Enemy(SerializedEnemy data) {
         this.data = data;
         atlas = new TextureAtlas(Gdx.files.internal(data.textureAtlasPath));
-        sprite = atlas.createSprite("enemy-0");
+        sprite = atlas.createSprite("0");
         sprite.setSize(sprite.getWidth() / Globals.DOWNSCALE_FACTOR, sprite.getHeight() / Globals.DOWNSCALE_FACTOR);
 
         detectionCircle = new Circle(position, data.followRadius);
@@ -33,7 +33,7 @@ public class Enemy {
         return sprite;
     }
 
-    public void followPlayer(float delta) {
+    public void updatePosition(float delta) {
         float velocity = data.speed * delta;
 
         if (Intersector.overlaps(detectionCircle, GameScene.player.getPlayerBounds())) {
