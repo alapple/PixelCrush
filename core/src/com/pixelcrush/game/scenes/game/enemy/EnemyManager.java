@@ -54,6 +54,10 @@ public class EnemyManager {
         this.enemies.forEach(enemy -> enemySprites.add(enemy.getSprite()));
     }
 
+    public void updatePositions(float delta) {
+        this.enemies.forEach(enemy -> enemy.updatePosition(delta));
+    }
+
     public ArrayList<File> getFilesRecursively(String path) throws IOException {
         ArrayList<File> files = new ArrayList<>();
         try (Stream<Path> stream = Files.walk(Paths.get(path))) {

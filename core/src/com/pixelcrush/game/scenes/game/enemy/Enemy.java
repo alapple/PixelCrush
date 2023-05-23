@@ -49,5 +49,8 @@ public class Enemy {
 
             System.out.println(position);
         }
+
+        sprite.setPosition(position.x, position.y);
+        detectionCircle.setPosition(position);
     }
 }

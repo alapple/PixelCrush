@@ -52,6 +52,8 @@ public class GameScene extends ScreenAdapter {
         player.handleInput(delta);
         applyPlayerSpeedModifierOnPath();
 
+        enemyManager.updatePositions(delta);
+
         camera.camFollowPlayer();
         camera.update();
         stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
