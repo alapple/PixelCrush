@@ -40,7 +40,7 @@ public class GameScene extends ScreenAdapter {
             e.printStackTrace();
         }
 
-        player.healthBar.getImages().forEach(image -> stage.addActor(image));
+        player.healthBar.getImages().forEach(stage::addActor);
 
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
         enemyManager.spawnEnemies();
@@ -85,10 +85,14 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
 
 
-        debugRenderer.setColor(Color.VIOLET);
         enemyManager.enemies.forEach(enemy -> {
-            Circle enemyDetectionCircle = enemy.getDetectionCircle();
+            Circle enemyDetectionCircle = enemy.getPlayerDetectionBounds();
+            debugRenderer.setColor(Color.VIOLET);
             debugRenderer.circle(enemyDetectionCircle.x, enemyDetectionCircle.y, enemyDetectionCircle.radius, 30);
+
+            Circle enemyStopDetection = enemy.getStartAttackBounds();
+            debugRenderer.setColor(Color.PURPLE);
+            debugRenderer.circle(enemyStopDetection.x, enemyStopDetection.y, enemyStopDetection.radius, 30);
         });
 
         debugRenderer.setColor(Color.YELLOW);
