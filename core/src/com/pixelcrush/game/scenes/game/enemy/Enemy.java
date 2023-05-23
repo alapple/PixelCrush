@@ -15,6 +15,10 @@ public class Enemy {
     private TextureAtlas atlas;
     private Sprite sprite;
 
+    public Circle getDetectionCircle() {
+        return detectionCircle;
+    }
+
     public Enemy(SerializedEnemy data) {
         this.data = data;
         atlas = new TextureAtlas(Gdx.files.internal(data.textureAtlasPath));

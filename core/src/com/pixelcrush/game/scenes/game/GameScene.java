@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -82,6 +83,13 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.setColor(Color.RED);
         Rectangle playerBounds = player.getPlayerBounds();
         debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
+
+
+        debugRenderer.setColor(Color.VIOLET);
+        enemyManager.enemies.forEach(enemy -> {
+            Circle enemyDetectionCircle = enemy.getDetectionCircle();
+            debugRenderer.circle(enemyDetectionCircle.x, enemyDetectionCircle.y, enemyDetectionCircle.radius, 30);
+        });
 
         debugRenderer.setColor(Color.YELLOW);
         TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
