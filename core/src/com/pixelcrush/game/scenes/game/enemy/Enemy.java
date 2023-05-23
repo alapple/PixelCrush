@@ -1,5 +1,6 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
@@ -7,12 +8,21 @@ import com.pixelcrush.game.scenes.game.GameScene;
 
 public class Enemy {
     private Vector2 position = new Vector2();
-    private SerializedEnemy data;
+    public SerializedEnemy data;
     private Circle detectionCircle;
+    private Sprite sprite = new Sprite();
 
     public Enemy(SerializedEnemy data) {
         this.data = data;
         detectionCircle = new Circle(position, data.followRadius);
+    }
+
+    public void spawn() {
+        // TODO: SPAWN ENEMY
+    }
+
+    public Sprite getSprite() {
+        return sprite;
     }
 
     public void followPlayer(float delta) {

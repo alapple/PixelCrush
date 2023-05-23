@@ -42,7 +42,8 @@ public class GameScene extends ScreenAdapter {
 
         player.healthBar.getImages().forEach(image -> stage.addActor(image));
 
-        enemyManager.spawnEnemiesForStage(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
+        enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
+        enemyManager.spawnEnemies();
         if (DebugConfig.DEBUG_RENDER) debugUI = new DebugUI(stage);
     }
 
@@ -61,6 +62,8 @@ public class GameScene extends ScreenAdapter {
 
         stage.getBatch().begin();
         player.sprite.draw(stage.getBatch());
+
+        enemyManager.enemySprites.forEach(sprite -> sprite.draw(stage.getBatch()));
         stage.getBatch().end();
 
         stage.draw();

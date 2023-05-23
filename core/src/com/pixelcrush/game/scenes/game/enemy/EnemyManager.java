@@ -1,5 +1,6 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -19,13 +20,14 @@ public class EnemyManager {
     public Gson gson = new Gson();
     public ArrayList<SerializedEnemy> enemyTypes = new ArrayList<>();
     public ArrayList<Enemy> enemies = new ArrayList<>();
+    public ArrayList<Sprite> enemySprites = new ArrayList<>();
 
     public synchronized static EnemyManager getInstance() {
         if (INSTANCE == null) INSTANCE = new EnemyManager();
         return INSTANCE;
     }
 
-    public void spawnEnemiesForStage(Stage stage) {
+    public void loadStageEnemies(Stage stage) {
         ArrayList<SerializedEnemy> enemies = new ArrayList<>();
 
         ArrayList<SerializedEnemy> possibleSpawnTypes = new ArrayList<>();
@@ -45,6 +47,11 @@ public class EnemyManager {
         System.out.printf("Spawned %d enemies with an upper bound of %d and a min of %d%n", enemies.size(), stage.minEnemies(), stage.maxEnemies());
 
         this.enemies = enemies.stream().map(SerializedEnemy::toEnemy).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void spawnEnemies() {
+        this.enemies.forEach(Enemy::spawn);
+        this.enemies.forEach(enemy -> enemySprites.add(enemy.getSprite()));
     }
 
     public ArrayList<File> getFilesRecursively(String path) throws IOException {
