@@ -62,7 +62,8 @@ public class Enemy {
             System.out.println(position);
         }
 
-        sprite.setPosition(position.x, position.y);
+        sprite.setOriginCenter();
+        sprite.setOriginBasedPosition(position.x, position.y);
         playerDetectionBounds.setPosition(position);
         startAttackBounds.setPosition(position);
     }
