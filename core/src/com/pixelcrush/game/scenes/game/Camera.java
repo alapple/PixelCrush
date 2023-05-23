@@ -7,7 +7,7 @@ import com.pixelcrush.game.Globals;
 
 public class Camera {
     private final OrthographicCamera camera;
-    private float downScaleFactor = 48f;
+    private float downScaleFactor = Globals.DOWNSCALE_FACTOR * 3;
 
     public Camera() {
         camera = new OrthographicCamera();

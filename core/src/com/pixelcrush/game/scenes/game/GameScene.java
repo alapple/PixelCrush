@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.DebugConfig;
-import com.pixelcrush.game.Globals;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
@@ -26,7 +25,7 @@ public class GameScene extends ScreenAdapter {
 
     public GameScene(TiledMap map) {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / (Globals.DOWNSCALE_FACTOR * 2));
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f); // 16 * 2; 8 *
 
         player = new Player();
         camera = new Camera();
