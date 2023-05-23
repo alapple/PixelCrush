@@ -16,6 +16,7 @@ public class Enemy {
     private Circle startAttackBounds;
     private TextureAtlas atlas;
     private Sprite sprite;
+    public float speedModifier = 0;
 
     public Circle getStartAttackBounds() {
         return startAttackBounds;
@@ -44,7 +45,7 @@ public class Enemy {
     }
 
     public void updatePosition(float delta) {
-        float velocity = data.speed * delta;
+        float velocity = (data.speed + speedModifier) * delta;
 
         Rectangle playerBounds = GameScene.player.getPlayerBounds();
         if (Intersector.overlaps(playerDetectionBounds, playerBounds) && !Intersector.overlaps(startAttackBounds, playerBounds)) {

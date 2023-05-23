@@ -9,10 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.DebugConfig;
+import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
@@ -51,7 +53,7 @@ public class GameScene extends ScreenAdapter {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         player.handleInput(delta);
-        applyPlayerSpeedModifierOnPath();
+        applySpeedModifierOnPath();
 
         enemyManager.updatePositions(delta);
 
@@ -124,7 +126,7 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.end();
     }
 
-    public void applyPlayerSpeedModifierOnPath() {
+    public void applySpeedModifierOnPath() {
         TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("path");
 
         Rectangle playerBounds = player.getPlayerBounds();
@@ -135,10 +137,16 @@ public class GameScene extends ScreenAdapter {
                     if (camera.getInternalCamera().frustum.boundsInFrustum(x + 1.5f, y + 0.5f, 0, 1, 1, 0)) {
                         Rectangle cellCollider = new Rectangle(x, y, 1, 1);
 
-                        if (cellCollider.overlaps(playerBounds)) {
+                        if (Intersector.overlaps(playerBounds, cellCollider)) {
                             player.speedModifier = 2;
                             return;
                         } else player.speedModifier = 0;
+
+                        for (Enemy enemy : enemyManager.enemies) {
+                            if (Intersector.overlaps(enemy.getStartAttackBounds(), cellCollider)) {
+                                enemy.speedModifier = 2;
+                            } else enemy.speedModifier = 0;
+                        }
                     }
                 }
             }
