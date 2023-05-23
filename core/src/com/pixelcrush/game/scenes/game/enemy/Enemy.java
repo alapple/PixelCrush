@@ -1,19 +1,27 @@
 package com.pixelcrush.game.scenes.game.enemy;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+import com.pixelcrush.game.Globals;
 import com.pixelcrush.game.scenes.game.GameScene;
 
 public class Enemy {
     private Vector2 position = new Vector2();
     public SerializedEnemy data;
     private Circle detectionCircle;
-    private Sprite sprite = new Sprite();
+    private TextureAtlas atlas;
+    private Sprite sprite;
 
     public Enemy(SerializedEnemy data) {
         this.data = data;
+        atlas = new TextureAtlas(Gdx.files.internal(data.textureAtlasPath));
+        sprite = atlas.createSprite("enemy-0");
+        sprite.setSize(sprite.getWidth() / Globals.DOWNSCALE_FACTOR, sprite.getHeight() / Globals.DOWNSCALE_FACTOR);
+
         detectionCircle = new Circle(position, data.followRadius);
     }
 
