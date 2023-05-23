@@ -12,10 +12,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.DebugConfig;
+import com.pixelcrush.game.Globals;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
-    private final float downScaleFactor = 32f;
     private final Camera camera;
     public static Player player = null;
     private final Stage stage;
@@ -26,7 +26,7 @@ public class GameScene extends ScreenAdapter {
 
     public GameScene(TiledMap map) {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / downScaleFactor);
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / (Globals.DOWNSCALE_FACTOR * 2));
 
         player = new Player();
         camera = new Camera();

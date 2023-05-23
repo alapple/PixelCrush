@@ -3,6 +3,7 @@ package com.pixelcrush.game.scenes.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
+import com.pixelcrush.game.Globals;
 
 public class Camera {
     private final OrthographicCamera camera;
@@ -10,7 +11,7 @@ public class Camera {
 
     public Camera() {
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth() / 16f, Gdx.graphics.getHeight() / 16f);
+        camera.setToOrtho(false, Gdx.graphics.getWidth() / Globals.DOWNSCALE_FACTOR, Gdx.graphics.getHeight() / Globals.DOWNSCALE_FACTOR);
         camera.update();
     }
 
