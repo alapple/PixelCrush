@@ -92,7 +92,7 @@ public class GameScene extends ScreenAdapter {
         });
 
         debugRenderer.setColor(Color.YELLOW);
-        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("path");
 
         for (int y = 0; y <= layer.getTileHeight(); y++) {
             for (int x = 0; x <= layer.getTileWidth(); x++) {
@@ -121,7 +121,7 @@ public class GameScene extends ScreenAdapter {
     }
 
     public void applyPlayerSpeedModifierOnPath() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("path");
 
         Rectangle playerBounds = player.getPlayerBounds();
         for (int y = 0; y <= layer.getTileHeight(); y++) {
