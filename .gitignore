@@ -1,6 +1,7 @@
 ## Java
 assets/other/program-files/texture-packer-checksum.txt
 assets/output/*
+.run
 
 *_AME
 *.ogv.xmp
