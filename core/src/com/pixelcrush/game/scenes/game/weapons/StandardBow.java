@@ -11,6 +11,7 @@ import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.Player;
 
 public class StandardBow extends SerializedBaseBow implements BaseBow {
+    public SerializedBaseBow data;
     public static final int FRAME_COLS = 10, FRAME_ROWS = 1;
     public Sprite sprite;
     public TextureAtlas atlas;
@@ -22,8 +23,9 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
     Player player;
 
 
-    public StandardBow(){
-        atlas = PixelCrushCore.manager.get("output/big-bow.atlas");
+    public StandardBow(SerializedBaseBow data){
+        this.data = data;
+        atlas = PixelCrushCore.manager.get(textureAtlasPath);
         sprite.setRegion(atlas.findRegion("00"));
     }
 
