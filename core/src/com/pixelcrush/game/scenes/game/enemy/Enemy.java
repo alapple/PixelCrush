@@ -17,6 +17,7 @@ public class Enemy {
     private TextureAtlas atlas;
     private Sprite sprite;
     public float speedModifier = 0;
+    private float timeSinceLastDamage = 0;
 
     public Circle getStartAttackBounds() {
         return startAttackBounds;
@@ -45,10 +46,18 @@ public class Enemy {
     }
 
     public void updatePosition(float delta) {
+        System.out.printf("delta: %f", delta);
+        timeSinceLastDamage += delta;
         float velocity = (data.speed + speedModifier) * delta;
 
         Rectangle playerBounds = GameScene.player.getPlayerBounds();
-        if (Intersector.overlaps(playerDetectionBounds, playerBounds) && !Intersector.overlaps(startAttackBounds, playerBounds)) {
+
+        System.out.println(timeSinceLastDamage);
+        if (Intersector.overlaps(startAttackBounds, playerBounds) && timeSinceLastDamage > 3) {
+            timeSinceLastDamage -= 3f;
+            System.out.printf("Reset timeSinceLastDamage: %f%n", timeSinceLastDamage);
+            damagePlayer();
+        } else if (Intersector.overlaps(playerDetectionBounds, playerBounds)) {
             Vector2 enemyPos = new Vector2(position);
             Vector2 playerPos = new Vector2(GameScene.player.position);
             Vector2 direction = new Vector2();
@@ -65,5 +74,10 @@ public class Enemy {
         sprite.setOriginBasedPosition(position.x, position.y);
         playerDetectionBounds.setPosition(position);
         startAttackBounds.setPosition(position);
+    }
+
+    public void damagePlayer() {
+        GameScene.player.healthBar.damage(data.damage);
+        System.out.printf("Damaging player by %.0f; player health is now %d%n", data.damage, GameScene.player.healthBar.getHealth());
     }
 }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class HealthBar {
     private final int maxHealth = 10;
-    private final int health = maxHealth;
+    private int health = maxHealth;
     private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
     private Sprite emptyHeart = new Sprite();
     private Sprite halfHeart = new Sprite();
@@ -21,6 +21,17 @@ public class HealthBar {
         emptyHeart = atlas.createSprite("heart-empty");
         halfHeart = atlas.createSprite("heart-half");
         fullHeart = atlas.createSprite("heart-full");
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void damage(float amount) {
+        health -= amount;
+        if (health <= 0) {
+            GameScene.player.die();
+        }
     }
 
     public ArrayList<Image> getImages() {

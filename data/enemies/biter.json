@@ -8,7 +8,7 @@
   ],
   "name": "Biter",
   "textureAtlasPath": "assets/output/enemy.atlas",
-  "damage": 10,
+  "damage": 2,
   "attackType": "MELEE",
   "rechargeTime": 2,
   "attackRadius": 1000,

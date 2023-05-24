@@ -19,7 +19,6 @@ public class Player {
     public float speedModifier = 0;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
-    public int health = 10;
     public HealthBar healthBar;
     public Rectangle bounds;
     public BaseBow bow;
@@ -61,6 +60,11 @@ public class Player {
 
         sprite.setPosition(position.x, position.y);
         sprite.setSize(1, 1);
+    }
+
+    public void die() {
+        System.out.println("Player died");
+        Gdx.app.exit();
     }
 
     public Rectangle getPlayerBounds() {
