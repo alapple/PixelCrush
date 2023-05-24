@@ -65,14 +65,10 @@ public class GameScene extends ScreenAdapter {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-        // player.handleInput(delta);
+
         applySpeedModifierOnPath();
-
         enemyManager.updatePositions(delta);
-
         camera.camFollowPlayer();
-        // camera.update();
-        // stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
 
         mapRenderer.setView(camera.getInternalCamera());
         mapRenderer.render();
