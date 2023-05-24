@@ -9,4 +9,5 @@ public class SerializedBaseBow {
     public String textureAtlasPath;
     public ArrayList<String> shootingFrames;
     public float force;
+    public boolean equiped;
 }
