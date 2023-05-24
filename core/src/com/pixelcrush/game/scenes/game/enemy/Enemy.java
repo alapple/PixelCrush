@@ -28,6 +28,7 @@ public class Enemy {
     private Sprite sprite;
     public float speedModifier = 0;
     private float timeSinceLastDamage = 0;
+    private int id = -1;
 
     public Circle getStartAttackBounds() {
         return startAttackBounds;
@@ -47,8 +48,9 @@ public class Enemy {
         startAttackBounds = new Circle(position, data.stopRadius);
     }
 
-    public void spawn() {
-        // TODO: SPAWN ENEMY
+    public void spawn(int id) {
+        if (this.id != -1) throw new RuntimeException("Enemy already spawned!");
+        this.id = id;
     }
 
     public Sprite getSprite() {
@@ -90,6 +92,6 @@ public class Enemy {
 
     public void damagePlayer() {
         GameScene.player.healthBar.damage(data.damage);
-        System.out.printf("Enemy: Damaging player by %.0f; player health is now %d%n", data.damage, GameScene.player.healthBar.getHealth());
+        System.out.printf("[Enemy: %d] Damaging player by %.0f; player health is now %d%n", id, data.damage, GameScene.player.healthBar.getHealth());
     }
 }

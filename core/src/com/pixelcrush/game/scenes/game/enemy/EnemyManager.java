@@ -51,7 +51,7 @@ public class EnemyManager {
     }
 
     public void spawnEnemies() {
-        this.enemies.forEach(Enemy::spawn);
+        for (int i = 0; i < this.enemies.size(); i++) this.enemies.get(i).spawn(i);
         this.enemies.forEach(enemy -> enemySprites.add(enemy.getSprite()));
     }
 
