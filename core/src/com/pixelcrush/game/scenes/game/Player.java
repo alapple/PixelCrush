@@ -2,14 +2,16 @@ package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
-public class Player {
+public class Player extends Actor {
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
 
@@ -30,6 +32,20 @@ public class Player {
         // handleinput has to be called once so idle is applied
         handleInput(0);
         bounds = new Rectangle(0, 0, sprite.getWidth(), sprite.getHeight());
+    }
+
+    @Override
+    public void act(float delta) {
+        System.out.println("act player: ");
+        handleInput(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
+        System.out.println(batch.isDrawing());
+        sprite.draw(batch);
+        System.out.println("draw player: " + parentAlpha);
     }
 
     public void handleInput(float delta) {

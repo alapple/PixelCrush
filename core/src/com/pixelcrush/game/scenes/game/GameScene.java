@@ -13,9 +13,12 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.pixelcrush.game.DebugConfig;
+import com.pixelcrush.game.Globals;
 import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
+import com.pixelcrush.game.utils.TerminalColors;
 
 public class GameScene extends ScreenAdapter {
     private final Camera camera;
@@ -28,11 +31,14 @@ public class GameScene extends ScreenAdapter {
 
     public GameScene(TiledMap map) {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f); // 16 * 2; 8 *
+        mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
 
         player = new Player();
         camera = new Camera();
-        stage = new Stage();
+
+        ScreenViewport svp = new ScreenViewport(camera.getInternalCamera());
+        svp.setUnitsPerPixel(1 / Globals.UNITS_PER_PIXEL);
+        stage = new Stage(svp);
         Gdx.input.setInputProcessor(stage);
 
         debugRenderer = new ShapeRenderer();
@@ -45,6 +51,8 @@ public class GameScene extends ScreenAdapter {
 
         player.healthBar.getImages().forEach(stage::addActor);
 
+        stage.addActor(player);
+
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
         enemyManager.spawnEnemies();
         debugUI = new DebugUI(stage);
@@ -53,25 +61,27 @@ public class GameScene extends ScreenAdapter {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-        player.handleInput(delta);
+        // player.handleInput(delta);
         applySpeedModifierOnPath();
 
         enemyManager.updatePositions(delta);
 
         camera.camFollowPlayer();
-        camera.update();
-        stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
+        // camera.update();
+        // stage.getBatch().setProjectionMatrix(camera.getCombinedMatrix());
 
         mapRenderer.setView(camera.getInternalCamera());
         mapRenderer.render();
 
-        stage.getBatch().begin();
-        player.sprite.draw(stage.getBatch());
-
+        stage.act(delta);
+        /*stage.getBatch().begin();
+        // player.sprite.draw(stage.getBatch());
         enemyManager.enemySprites.forEach(sprite -> sprite.draw(stage.getBatch()));
-        stage.getBatch().end();
+        stage.getBatch().end();*/
 
         stage.draw();
+        System.out.println(stage.getCamera());
+        System.out.println(TerminalColors.ANSI_RED + camera.getInternalCamera() + TerminalColors.ANSI_RESET);
 
         debugUI.update();
         if (DebugConfig.DEBUG_RENDER) {
