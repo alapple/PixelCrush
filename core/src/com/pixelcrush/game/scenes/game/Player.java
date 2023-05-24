@@ -36,16 +36,13 @@ public class Player extends Actor {
 
     @Override
     public void act(float delta) {
-        System.out.println("act player: ");
         handleInput(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        System.out.println(batch.isDrawing());
         sprite.draw(batch);
-        System.out.println("draw player: " + parentAlpha);
     }
 
     public void handleInput(float delta) {

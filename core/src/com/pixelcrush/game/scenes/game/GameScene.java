@@ -19,7 +19,6 @@ import com.pixelcrush.game.DebugConfig;
 import com.pixelcrush.game.Globals;
 import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
-import com.pixelcrush.game.utils.TerminalColors;
 
 public class GameScene extends ScreenAdapter {
     private final Camera camera;
@@ -79,9 +78,6 @@ public class GameScene extends ScreenAdapter {
         stage.getBatch().end();
 
         stage.draw();
-        System.out.println(stage.getCamera());
-        System.out.println(TerminalColors.ANSI_RED + camera.getInternalCamera() + TerminalColors.ANSI_RESET);
-
         uiStage.draw();
 
         debugUI.update();
