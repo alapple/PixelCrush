@@ -44,9 +44,8 @@ public class HealthBar {
             Image img = new Image(sprite);
 
             img.setScaling(Scaling.contain);
-            img.scaleBy(4f);
-            // img.getWidth() * 4 * i + 25 + i * 6
-            img.setPosition(i == 0 ? lastX : lastX + img.getWidth() + 40, 10);
+            img.scaleBy(3.7f);
+            img.setPosition(i == 0 ? lastX : lastX + img.getWidth() + 35, 10);
 
             images.add(img);
 

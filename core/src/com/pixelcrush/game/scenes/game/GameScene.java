@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -42,7 +43,7 @@ public class GameScene extends ScreenAdapter {
         stage = new Stage(svp);
         Gdx.input.setInputProcessor(stage);
 
-        uiStage = new Stage();
+        uiStage = new Stage(new ScreenViewport());
 
         debugRenderer = new ShapeRenderer();
         try {
@@ -174,9 +175,18 @@ public class GameScene extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         camera.handleResize(width, height);
+
+        OrthographicCamera uiCamera = (OrthographicCamera) uiStage.getCamera();
+        uiCamera.viewportWidth = width / camera.getDownScaleFactor();/* / this.uiCamera.getDownScaleFactor();*/
+        uiCamera.viewportHeight = height / camera.getDownScaleFactor(); /* this.uiCamera.getDownScaleFactor();*/
+        uiCamera.update();
+
         stage.getViewport().setWorldSize(width, height);
-        mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
+
+        uiStage.getViewport().update(width, height, true);
+
+        mapRenderer.getViewBounds().setSize(width, height);
         debugUI.handleResize(width, height);
     }
 

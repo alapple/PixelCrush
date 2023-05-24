@@ -15,6 +15,10 @@ public class Camera {
         camera.update();
     }
 
+    public float getDownScaleFactor() {
+        return downScaleFactor;
+    }
+
     public OrthographicCamera getInternalCamera() {
         return camera;
     }
