@@ -74,10 +74,9 @@ public class GameScene extends ScreenAdapter {
         mapRenderer.render();
 
         stage.act(delta);
-        /*stage.getBatch().begin();
-        // player.sprite.draw(stage.getBatch());
+        stage.getBatch().begin();
         enemyManager.enemySprites.forEach(sprite -> sprite.draw(stage.getBatch()));
-        stage.getBatch().end();*/
+        stage.getBatch().end();
 
         stage.draw();
         System.out.println(stage.getCamera());
