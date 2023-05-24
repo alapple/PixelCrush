@@ -10,6 +10,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.scenes.game.GameScene;
 
 public class Enemy {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     private Vector2 position = new Vector2();
     public SerializedEnemy data;
     private Circle playerDetectionBounds;
@@ -46,16 +56,12 @@ public class Enemy {
     }
 
     public void updatePosition(float delta) {
-        System.out.printf("delta: %f", delta);
         timeSinceLastDamage += delta;
         float velocity = (data.speed + speedModifier) * delta;
 
         Rectangle playerBounds = GameScene.player.getPlayerBounds();
-
-        System.out.println(timeSinceLastDamage);
         if (Intersector.overlaps(startAttackBounds, playerBounds) && timeSinceLastDamage > 3) {
             timeSinceLastDamage -= 3f;
-            System.out.printf("Reset timeSinceLastDamage: %f%n", timeSinceLastDamage);
             damagePlayer();
         } else if (Intersector.overlaps(playerDetectionBounds, playerBounds)) {
             Vector2 enemyPos = new Vector2(position);
@@ -75,9 +81,15 @@ public class Enemy {
         playerDetectionBounds.setPosition(position);
         startAttackBounds.setPosition(position);
     }
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+    public void setPosition(float x, float y) {
+        setPosition(new Vector2(x, y));
+    }
 
     public void damagePlayer() {
         GameScene.player.healthBar.damage(data.damage);
-        System.out.printf("Damaging player by %.0f; player health is now %d%n", data.damage, GameScene.player.healthBar.getHealth());
+        System.out.printf("Enemy: Damaging player by %.0f; player health is now %d%n", data.damage, GameScene.player.healthBar.getHealth());
     }
 }

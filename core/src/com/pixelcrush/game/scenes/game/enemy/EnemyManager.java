@@ -47,6 +47,7 @@ public class EnemyManager {
         System.out.printf("Spawned %d enemies with an upper bound of %d and a min of %d%n", enemies.size(), stage.minEnemies(), stage.maxEnemies());
 
         this.enemies = enemies.stream().map(SerializedEnemy::toEnemy).collect(Collectors.toCollection(ArrayList::new));
+        this.enemies.forEach(enemy -> enemy.setPosition(rng.nextInt(0, 30), rng.nextInt(0, 30)));
     }
 
     public void spawnEnemies() {
