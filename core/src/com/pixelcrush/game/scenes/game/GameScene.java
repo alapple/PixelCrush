@@ -162,7 +162,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
-        if (DebugConfig.DEBUG_RENDER) debugUI.handleResize(width, height);
+        debugUI.handleResize(width, height);
     }
 
     @Override

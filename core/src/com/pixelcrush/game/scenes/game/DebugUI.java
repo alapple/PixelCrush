@@ -21,11 +21,12 @@ public class DebugUI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 DebugConfig.DEBUG_RENDER = showDebugButton.isChecked();
+                handleResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             }
         });
         stage.addActor(showDebugButton);
         stage.addActor(fpsLabel);
-        handleResize(0, Gdx.graphics.getHeight());
+        handleResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public void update() {
