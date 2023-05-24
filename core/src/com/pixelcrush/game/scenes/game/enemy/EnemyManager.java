@@ -51,8 +51,11 @@ public class EnemyManager {
     }
 
     public void spawnEnemies() {
-        for (int i = 0; i < this.enemies.size(); i++) this.enemies.get(i).spawn(i);
-        this.enemies.forEach(enemy -> enemySprites.add(enemy.getSprite()));
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            enemy.spawn(i);
+            enemySprites.add(enemy.getSprite());
+        }
     }
 
     public void updatePositions(float delta) {
