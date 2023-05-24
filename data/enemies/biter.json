@@ -12,7 +12,7 @@
   "attackType": "MELEE",
   "rechargeTime": 2,
   "attackRadius": 1000,
-  "stopRadius": 0.3,
-  "followRadius": 6,
+  "stopRadius": 0.35,
+  "followRadius": 16,
   "stayAttachedAfterFirstContact": false
 }
