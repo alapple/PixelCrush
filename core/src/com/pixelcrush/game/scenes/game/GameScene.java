@@ -24,6 +24,7 @@ public class GameScene extends ScreenAdapter {
     private final Camera camera;
     public static Player player = null;
     private final Stage stage;
+    private final Stage uiStage;
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final ShapeRenderer debugRenderer;
     private final EnemyManager enemyManager = new EnemyManager();
@@ -41,6 +42,8 @@ public class GameScene extends ScreenAdapter {
         stage = new Stage(svp);
         Gdx.input.setInputProcessor(stage);
 
+        uiStage = new Stage();
+
         debugRenderer = new ShapeRenderer();
         try {
             enemyManager.loadAllEnemies(Gdx.files.internal("data/enemies").path());
@@ -49,7 +52,7 @@ public class GameScene extends ScreenAdapter {
             e.printStackTrace();
         }
 
-        player.healthBar.getImages().forEach(stage::addActor);
+        player.healthBar.getImages().forEach(uiStage::addActor);
 
         stage.addActor(player);
 
@@ -82,6 +85,8 @@ public class GameScene extends ScreenAdapter {
         stage.draw();
         System.out.println(stage.getCamera());
         System.out.println(TerminalColors.ANSI_RED + camera.getInternalCamera() + TerminalColors.ANSI_RESET);
+
+        uiStage.draw();
 
         debugUI.update();
         if (DebugConfig.DEBUG_RENDER) {
