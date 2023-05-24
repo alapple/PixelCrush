@@ -33,6 +33,7 @@ public class GameScene extends ScreenAdapter {
         player = new Player();
         camera = new Camera();
         stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
         debugRenderer = new ShapeRenderer();
         try {
@@ -46,7 +47,7 @@ public class GameScene extends ScreenAdapter {
 
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
         enemyManager.spawnEnemies();
-        if (DebugConfig.DEBUG_RENDER) debugUI = new DebugUI(stage);
+        debugUI = new DebugUI(stage);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class GameScene extends ScreenAdapter {
 
         stage.draw();
 
+        debugUI.update();
         if (DebugConfig.DEBUG_RENDER) {
             debugUI.updateFPSText();
             renderDebug();
@@ -160,7 +162,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
-        if (DebugConfig.DEBUG_RENDER) debugUI.handleResize(width, height);
+        debugUI.handleResize(width, height);
     }
 
     @Override
