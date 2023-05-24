@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.PixelCrushCore;
+import com.pixelcrush.game.scenes.game.Player;
 
 public class StandardBow extends SerializedBaseBow implements BaseBow {
     public static final int FRAME_COLS = 10, FRAME_ROWS = 1;
@@ -16,6 +18,8 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
     Texture walkSheet;
     float stateTime;
     TextureRegion region;
+    public Vector2 position;
+    Player player;
 
 
     public StandardBow(){
@@ -23,7 +27,7 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
         sprite.setRegion(atlas.findRegion("00"));
     }
 
-    public void createanimation(){
+    public void createAnimation(){
         walkSheet = new Texture(Gdx.files.internal("sheets/ninja-idle-sheet.png"));
 
         TextureRegion[][] tmp = TextureRegion.split(walkSheet,
@@ -42,11 +46,15 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
         stateTime = 0f;
         region = drawBowAnimation.getKeyFrame(0);
     }
+
+    public void followPlayer(){
+        sprite.setPosition(player.position.x, player.position.y);
+    }
     @Override
     public void shoot() {
         boolean isRightMuseButtonPressed = Gdx.input.isButtonPressed(2);
         if (isRightMuseButtonPressed){
-            createanimation();
+            createAnimation();
         }
     }
 }
