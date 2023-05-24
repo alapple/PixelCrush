@@ -1,5 +1,6 @@
 {
   "name": "standard Arrow",
   "damage": 1,
-  "texturePath":
+  "texturePath": "assets/input/placeholder/small-placeholder.png",
+
 }
