@@ -8,4 +8,6 @@ public class SerializedBaseBow {
     public float damageMultiplier;
     public String textureAtlasPath;
     public ArrayList<String> shootingFrames;
+    public float force;
+    public boolean equiped;
 }

@@ -17,6 +17,7 @@ public class SerializedEnemy {
     public AttackType attackType;
     public float rechargeTime;
     public float attackRadius;
+    public float stopRadius;
     public float followRadius;
     public boolean stayAttachedAfterFirstContact;
 

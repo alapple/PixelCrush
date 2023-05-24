@@ -9,10 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.pixelcrush.game.DebugConfig;
+import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
@@ -31,6 +33,7 @@ public class GameScene extends ScreenAdapter {
         player = new Player();
         camera = new Camera();
         stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
         debugRenderer = new ShapeRenderer();
         try {
@@ -40,18 +43,18 @@ public class GameScene extends ScreenAdapter {
             e.printStackTrace();
         }
 
-        player.healthBar.getImages().forEach(image -> stage.addActor(image));
+        player.healthBar.getImages().forEach(stage::addActor);
 
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
         enemyManager.spawnEnemies();
-        if (DebugConfig.DEBUG_RENDER) debugUI = new DebugUI(stage);
+        debugUI = new DebugUI(stage);
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
         player.handleInput(delta);
-        applyPlayerSpeedModifierOnPath();
+        applySpeedModifierOnPath();
 
         enemyManager.updatePositions(delta);
 
@@ -70,6 +73,7 @@ public class GameScene extends ScreenAdapter {
 
         stage.draw();
 
+        debugUI.update();
         if (DebugConfig.DEBUG_RENDER) {
             debugUI.updateFPSText();
             renderDebug();
@@ -85,14 +89,18 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.rect(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
 
 
-        debugRenderer.setColor(Color.VIOLET);
         enemyManager.enemies.forEach(enemy -> {
-            Circle enemyDetectionCircle = enemy.getDetectionCircle();
+            Circle enemyDetectionCircle = enemy.getPlayerDetectionBounds();
+            debugRenderer.setColor(Color.VIOLET);
             debugRenderer.circle(enemyDetectionCircle.x, enemyDetectionCircle.y, enemyDetectionCircle.radius, 30);
+
+            Circle enemyStopDetection = enemy.getStartAttackBounds();
+            debugRenderer.setColor(Color.PURPLE);
+            debugRenderer.circle(enemyStopDetection.x, enemyStopDetection.y, enemyStopDetection.radius, 30);
         });
 
         debugRenderer.setColor(Color.YELLOW);
-        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("path");
 
         for (int y = 0; y <= layer.getTileHeight(); y++) {
             for (int x = 0; x <= layer.getTileWidth(); x++) {
@@ -120,8 +128,8 @@ public class GameScene extends ScreenAdapter {
         debugRenderer.end();
     }
 
-    public void applyPlayerSpeedModifierOnPath() {
-        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("way");
+    public void applySpeedModifierOnPath() {
+        TiledMapTileLayer layer = (TiledMapTileLayer) mapRenderer.getMap().getLayers().get("path");
 
         Rectangle playerBounds = player.getPlayerBounds();
         for (int y = 0; y <= layer.getTileHeight(); y++) {
@@ -131,10 +139,16 @@ public class GameScene extends ScreenAdapter {
                     if (camera.getInternalCamera().frustum.boundsInFrustum(x + 1.5f, y + 0.5f, 0, 1, 1, 0)) {
                         Rectangle cellCollider = new Rectangle(x, y, 1, 1);
 
-                        if (cellCollider.overlaps(playerBounds)) {
+                        if (Intersector.overlaps(playerBounds, cellCollider)) {
                             player.speedModifier = 2;
                             return;
                         } else player.speedModifier = 0;
+
+                        for (Enemy enemy : enemyManager.enemies) {
+                            if (Intersector.overlaps(enemy.getStartAttackBounds(), cellCollider)) {
+                                enemy.speedModifier = 2;
+                            } else enemy.speedModifier = 0;
+                        }
                     }
                 }
             }
@@ -148,7 +162,7 @@ public class GameScene extends ScreenAdapter {
         stage.getViewport().setWorldSize(width, height);
         mapRenderer.getViewBounds().setSize(width, height);
         stage.getViewport().update(width, height, true);
-        if (DebugConfig.DEBUG_RENDER) debugUI.handleResize(width, height);
+        debugUI.handleResize(width, height);
     }
 
     @Override
