@@ -30,7 +30,7 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
     }
 
     public void createAnimation(){
-        walkSheet = new Texture(Gdx.files.internal("sheets/ninja-idle-sheet.png"));
+        walkSheet = new Texture(Gdx.files.internal("big-bow.png"));
 
         TextureRegion[][] tmp = TextureRegion.split(walkSheet,
                 walkSheet.getWidth() / FRAME_COLS,
