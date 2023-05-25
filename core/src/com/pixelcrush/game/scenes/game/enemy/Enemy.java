@@ -10,23 +10,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.scenes.game.GameScene;
 
 public class Enemy {
-    private Vector2 position = new Vector2();
     public SerializedEnemy data;
+    public float speedModifier = 0;
+    private Vector2 position = new Vector2();
     private Circle playerDetectionBounds;
     private Circle startAttackBounds;
     private TextureAtlas atlas;
     private Sprite sprite;
-    public float speedModifier = 0;
     private float timeSinceLastDamage = 0;
     private int id = -1;
-
-    public Circle getStartAttackBounds() {
-        return startAttackBounds;
-    }
-
-    public Circle getPlayerDetectionBounds() {
-        return playerDetectionBounds;
-    }
 
     public Enemy(SerializedEnemy data) {
         this.data = data;
@@ -36,6 +28,14 @@ public class Enemy {
 
         playerDetectionBounds = new Circle(position, data.followRadius);
         startAttackBounds = new Circle(position, data.stopRadius);
+    }
+
+    public Circle getStartAttackBounds() {
+        return startAttackBounds;
+    }
+
+    public Circle getPlayerDetectionBounds() {
+        return playerDetectionBounds;
     }
 
     public void spawn(int id) {
@@ -73,9 +73,11 @@ public class Enemy {
         playerDetectionBounds.setPosition(position);
         startAttackBounds.setPosition(position);
     }
+
     public void setPosition(Vector2 position) {
         this.position = position;
     }
+
     public void setPosition(float x, float y) {
         setPosition(new Vector2(x, y));
     }

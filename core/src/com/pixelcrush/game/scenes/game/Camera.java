@@ -19,6 +19,11 @@ public class Camera {
         return downScaleFactor;
     }
 
+    public void setDownScaleFactor(float downScaleFactor) {
+        this.downScaleFactor = downScaleFactor;
+        handleResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    }
+
     public OrthographicCamera getInternalCamera() {
         return camera;
     }
@@ -41,10 +46,5 @@ public class Camera {
 
     public Matrix4 getCombinedMatrix() {
         return camera.combined;
-    }
-
-    public void setDownScaleFactor(float downScaleFactor) {
-        this.downScaleFactor = downScaleFactor;
-        handleResize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 }

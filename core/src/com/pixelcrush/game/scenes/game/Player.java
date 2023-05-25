@@ -15,27 +15,27 @@ import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
 public class Player extends Actor {
-    private static Player INSTANCE;
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
-
+    private static Player INSTANCE;
     private static float walkSpeed = WALK_SPEED;
     private static float runSpeed = RUN_SPEED;
     private static float pathSpeedModifier = 2;
-    private TextureAtlas atlas;
     public float activeSpeedModifier = 0;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
     public HealthBar healthBar;
     public Rectangle bounds;
     public BaseBow bow;
+    private TextureAtlas atlas;
+
+    private Player() {
+    }
 
     public synchronized static Player getInstance() {
         if (INSTANCE == null) INSTANCE = new Player();
         return INSTANCE;
     }
-
-    private Player() {}
 
     public void spawn() {
         atlas = PixelCrushCore.manager.get("output/player.atlas");

@@ -22,12 +22,13 @@ public class EnemyManager {
     public ArrayList<Enemy> enemies = new ArrayList<>();
     public ArrayList<Sprite> enemySprites = new ArrayList<>();
 
+    private EnemyManager() {
+    }
+
     public synchronized static EnemyManager getInstance() {
         if (INSTANCE == null) INSTANCE = new EnemyManager();
         return INSTANCE;
     }
-
-    private EnemyManager() {}
 
     public void loadStageEnemies(Stage stage) {
         ArrayList<SerializedEnemy> enemies = new ArrayList<>();

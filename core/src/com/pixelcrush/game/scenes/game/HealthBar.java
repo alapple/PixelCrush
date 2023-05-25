@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class HealthBar {
     private final int maxHealth = 10;
-    private int health = maxHealth;
     private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
+    private int health = maxHealth;
     private Sprite emptyHeart = new Sprite();
     private Sprite halfHeart = new Sprite();
     private Sprite fullHeart = new Sprite();

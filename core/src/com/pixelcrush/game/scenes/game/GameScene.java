@@ -21,8 +21,8 @@ import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
-    private final Camera camera;
     public static Player player = Player.getInstance();
+    private final Camera camera;
     private final Stage stage;
     private final Stage uiStage;
     private final OrthogonalTiledMapRenderer mapRenderer;

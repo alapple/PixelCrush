@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-public class StandardArrow extends SerializedArrow{
-    private Vector2 position = new Vector2();
+public class StandardArrow extends SerializedArrow {
     public SerializedArrow data;
+    private Vector2 position = new Vector2();
     private Sprite sprite;
     private Texture texture;
 
 
-    public StandardArrow(SerializedArrow data){
+    public StandardArrow(SerializedArrow data) {
         this.data = data;
     }
 
-    public void shoot(float delta){
+    public void shoot(float delta) {
 
     }
 
