@@ -51,6 +51,8 @@ public class HealthManager {
 
             lastX += img.getX() - lastX;
         }
+
+        System.out.println(this);
         return images;
     }
 
@@ -60,11 +62,30 @@ public class HealthManager {
         for (int i = 0; i < Math.floor(health / 2f); i++) {
             hearts.add(fullHeart);
         }
-        if (health % 2 != 0) hearts.set((int) Math.ceil(health / 2f), halfHeart);
-        for (int i = 0; i < maxHealth; i++) {
+        if (health % 2 == 0) hearts.add(halfHeart);
+        /*for (int i = 0; i < maxHealth; i++) {
             if (i + 1 < hearts.size() || i + 1 > hearts.size()) continue;
             if (hearts.get(i) == null) hearts.add(fullHeart);
+        }*/
+
+        for (int i = 0; i < health; i++) {
+            if (hearts.size() < i) hearts.add(emptyHeart);
         }
         return hearts;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("HealthManager{");
+        sb.append("maxHealth=").append(maxHealth);
+        sb.append(", health=").append(health);
+        sb.append(", hearts=[");
+        ArrayList<Sprite> heartsSprites = getHeartsSprites();
+        for (int i = 0; i < heartsSprites.size(); i++) {
+            Sprite heart = heartsSprites.get(i);
+            sb.append(heart.getTexture().toString()).append(i == heartsSprites.size() - 1 ? "" : ", ");
+        }
+        sb.append("]}");
+        return sb.toString();
     }
 }
