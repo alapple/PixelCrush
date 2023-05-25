@@ -1,0 +1,5 @@
+{
+  "walkSpeed": 6,
+  "runSpeed": 12,
+  "pathSpeedModifier": 1.2
+}

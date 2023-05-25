@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
@@ -15,10 +18,11 @@ public class Player extends Actor {
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
 
-    private static final float walkSpeed = WALK_SPEED;
-    private static final float runSpeed = RUN_SPEED;
+    private static float walkSpeed = WALK_SPEED;
+    private static float runSpeed = RUN_SPEED;
+    private static float pathSpeedModifier = 2;
     private final TextureAtlas atlas;
-    public float speedModifier = 0;
+    public float activeSpeedModifier = 0;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
     public HealthBar healthBar;
@@ -26,6 +30,19 @@ public class Player extends Actor {
     public BaseBow bow;
 
     public Player() {
+        try {
+            String jsonString = Gdx.files.internal("data/playerData.json").readString();
+            SerializedPlayerData playerData = new Gson().fromJson(jsonString, SerializedPlayerData.class);
+            walkSpeed = playerData.walkSpeed;
+            runSpeed = playerData.runSpeed;
+            pathSpeedModifier = playerData.pathSpeedModifier;
+        } catch (GdxRuntimeException gre) {
+            gre.printStackTrace();
+            System.err.println("Unable to load data/playerData.json. Please verify that the file exists and is encoded in the correct format!");
+        } catch (JsonSyntaxException jse) {
+            System.err.println("data/playerData.json was loaded correctly but couldn't be parsed by the JSON parser. Please verify that the file content is valid JSON and contains all needed key-value pairs");
+        }
+
         atlas = PixelCrushCore.manager.get("output/player.atlas");
         healthBar = new HealthBar();
 
@@ -46,7 +63,7 @@ public class Player extends Actor {
     }
 
     public void handleInput(float delta) {
-        float velocity = ((Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) ? runSpeed : walkSpeed) + speedModifier) * delta;
+        float velocity = ((Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) ? runSpeed : walkSpeed) + activeSpeedModifier) * delta;
         boolean wPressed = Gdx.input.isKeyPressed(Input.Keys.W);
         boolean sPressed = Gdx.input.isKeyPressed(Input.Keys.S);
         boolean dPressed = Gdx.input.isKeyPressed(Input.Keys.D);
@@ -83,6 +100,10 @@ public class Player extends Actor {
     public Rectangle getPlayerBounds() {
         bounds.setPosition(position);
         return bounds;
+    }
+
+    public float getPathSpeedModifier() {
+        return pathSpeedModifier;
     }
 
     public boolean overlapsWith(Rectangle rect) {

@@ -147,9 +147,9 @@ public class GameScene extends ScreenAdapter {
                         Rectangle cellCollider = new Rectangle(x, y, 1, 1);
 
                         if (Intersector.overlaps(playerBounds, cellCollider)) {
-                            player.speedModifier = 2;
+                            player.activeSpeedModifier = player.getPathSpeedModifier();
                             return;
-                        } else player.speedModifier = 0;
+                        } else player.activeSpeedModifier = 0;
 
                         for (Enemy enemy : enemyManager.enemies) {
                             if (Intersector.overlaps(enemy.getStartAttackBounds(), cellCollider)) {
