@@ -59,16 +59,16 @@ public class Player extends Actor {
 
     public void loadPlayerData() {
         try {
-            String jsonString = Gdx.files.internal("data/playerData.json").readString();
+            String jsonString = Gdx.files.internal("data/playerData.jsonc").readString();
             SerializedPlayerData playerData = new Gson().fromJson(jsonString, SerializedPlayerData.class);
             walkSpeed = playerData.walkSpeed;
             runSpeed = playerData.runSpeed;
             pathSpeedModifier = playerData.pathSpeedModifier;
         } catch (GdxRuntimeException gre) {
             gre.printStackTrace();
-            System.err.println("Unable to load data/playerData.json. Please verify that the file exists and is encoded in the correct format!");
+            System.err.println("Unable to load data/playerData.jsonc. Please verify that the file exists and is encoded in the correct format!");
         } catch (JsonSyntaxException jse) {
-            System.err.println("data/playerData.json was loaded correctly but couldn't be parsed by the JSON parser. Please verify that the file content is valid JSON and contains all needed key-value pairs");
+            System.err.println("data/playerData.jsonc was loaded correctly but couldn't be parsed by the JSON parser. Please verify that the file content is valid JSON and contains all needed key-value pairs");
         }
     }
 
