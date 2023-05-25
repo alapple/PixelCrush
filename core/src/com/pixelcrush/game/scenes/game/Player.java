@@ -24,7 +24,7 @@ public class Player extends Actor {
     public float activeSpeedModifier = 0;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
-    public HealthBar healthBar;
+    public HealthManager healthManager;
     public Rectangle bounds;
     public BaseBow bow;
     private TextureAtlas atlas;
@@ -39,7 +39,7 @@ public class Player extends Actor {
 
     public void spawn() {
         atlas = PixelCrushCore.manager.get("output/player.atlas");
-        healthBar = new HealthBar();
+        healthManager = new HealthManager();
 
         // handleinput has to be called once so idle is applied
         handleInput(0);

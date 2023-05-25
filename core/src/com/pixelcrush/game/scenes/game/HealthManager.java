@@ -8,7 +8,7 @@ import com.pixelcrush.game.PixelCrushCore;
 
 import java.util.ArrayList;
 
-public class HealthBar {
+public class HealthManager {
     private final int maxHealth = 10;
     private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
     private int health = maxHealth;
@@ -17,7 +17,7 @@ public class HealthBar {
     private Sprite fullHeart = new Sprite();
 
 
-    public HealthBar() {
+    public HealthManager() {
         emptyHeart = atlas.createSprite("heart-empty");
         halfHeart = atlas.createSprite("heart-half");
         fullHeart = atlas.createSprite("heart-full");

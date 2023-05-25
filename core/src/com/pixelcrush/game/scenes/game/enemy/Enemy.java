@@ -83,7 +83,7 @@ public class Enemy {
     }
 
     public void damagePlayer() {
-        GameScene.player.healthBar.damage(data.damage);
-        System.out.printf("[Enemy: %d] Damaging player by %.0f; player health is now %d%n", id, data.damage, GameScene.player.healthBar.getHealth());
+        GameScene.player.healthManager.damage(data.damage);
+        System.out.printf("[Enemy: %d] Damaging player by %.0f; player health is now %d%n", id, data.damage, GameScene.player.healthManager.getHealth());
     }
 }

@@ -46,7 +46,7 @@ public class GameScene extends ScreenAdapter {
         uiStage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(new InputMultiplexer(stage, uiStage));
 
-        player.healthBar.getImages().forEach(uiStage::addActor);
+        player.healthManager.getImages().forEach(uiStage::addActor);
         debugUI = new DebugUI(uiStage);
         debugRenderer = new ShapeRenderer();
 
