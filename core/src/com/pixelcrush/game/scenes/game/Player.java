@@ -98,6 +98,7 @@ public class Player extends Actor {
             position.x += velocity;
         } else sprite = atlas.createSprite("idle");
 
+        sprite.setCenter(sprite.getWidth() / 2f, sprite.getHeight() / 2f);
         sprite.setPosition(position.x, position.y);
         sprite.setSize(1, 1);
     }
