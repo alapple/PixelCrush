@@ -35,7 +35,7 @@ public class LoadingScene extends ScreenAdapter {
 
         PixelCrushCore.manager.load("output/player.atlas", TextureAtlas.class);
         PixelCrushCore.manager.load("output/heart.atlas", TextureAtlas.class);
-        PixelCrushCore.manager.load("data/uiskin.json", Skin.class);
+        PixelCrushCore.manager.load("data/ui/uiskin.json", Skin.class);
         map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
 
         try {

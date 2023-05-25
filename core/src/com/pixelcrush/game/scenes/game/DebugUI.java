@@ -11,7 +11,7 @@ import com.pixelcrush.game.DebugConfig;
 import com.pixelcrush.game.PixelCrushCore;
 
 public class DebugUI {
-    private final Skin uiSkin = PixelCrushCore.manager.get("data/uiskin.json");
+    private final Skin uiSkin = PixelCrushCore.manager.get("data/ui/uiskin.json");
     private final Label fpsLabel = new Label("Collecting...", uiSkin);
     private final TextButton showDebugButton = new TextButton("Show Debug UI", uiSkin, "toggle");
 
