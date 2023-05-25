@@ -31,7 +31,7 @@ public class LoadingScene extends ScreenAdapter {
         map = new TmxMapLoader().load("assets/other/program-files/tiled-project/untitled.tmx");
 
         try {
-            EnemyManager.getInstance().loadAllEnemies(Gdx.files.internal("data/enemies").path());
+            EnemyManager.getInstance().loadAllEnemies(Gdx.files.internal("data/enemies"));
         } catch (Exception e) {
             System.err.println("cannot load enemies: ERR");
             e.printStackTrace();

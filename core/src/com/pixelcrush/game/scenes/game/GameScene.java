@@ -46,7 +46,7 @@ public class GameScene extends ScreenAdapter {
 
         debugRenderer = new ShapeRenderer();
         try {
-            enemyManager.loadAllEnemies(Gdx.files.internal("data/enemies").path());
+            enemyManager.loadAllEnemies(Gdx.files.internal("data/enemies"));
         } catch (Exception e) {
             System.err.println("cannot load enemies: ERR");
             e.printStackTrace();
