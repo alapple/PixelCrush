@@ -27,6 +27,8 @@ public class EnemyManager {
         return INSTANCE;
     }
 
+    private EnemyManager() {}
+
     public void loadStageEnemies(Stage stage) {
         ArrayList<SerializedEnemy> enemies = new ArrayList<>();
 
@@ -35,7 +37,6 @@ public class EnemyManager {
             if (enemyType.firstStage <= stage.stage()) possibleSpawnTypes.add(enemyType);
         }
 
-        System.out.println(possibleSpawnTypes.size());
         Random rng = new Random();
         int upperBoundEnemyType = enemyTypes.size() - 1;
         while (true) {
@@ -75,7 +76,6 @@ public class EnemyManager {
         getFilesRecursively(fileHandle.path()).forEach(file -> {
             try {
                 SerializedEnemy enemyType = gson.fromJson(file.readString(), SerializedEnemy.class);
-                System.out.println(enemyType);
                 enemyTypes.add(enemyType);
             } catch (GdxRuntimeException e) {
                 throw new RuntimeException(e);

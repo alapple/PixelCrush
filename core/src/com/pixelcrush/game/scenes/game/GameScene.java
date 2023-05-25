@@ -27,7 +27,7 @@ public class GameScene extends ScreenAdapter {
     private final Stage uiStage;
     private final OrthogonalTiledMapRenderer mapRenderer;
     private final ShapeRenderer debugRenderer;
-    private final EnemyManager enemyManager = new EnemyManager();
+    private final EnemyManager enemyManager = EnemyManager.getInstance();
     private final DebugUI debugUI;
 
     public GameScene(TiledMap map) {
@@ -45,15 +45,8 @@ public class GameScene extends ScreenAdapter {
         uiStage = new Stage(new ScreenViewport());
 
         debugRenderer = new ShapeRenderer();
-        try {
-            enemyManager.loadAllEnemies(Gdx.files.internal("data/enemies"));
-        } catch (Exception e) {
-            System.err.println("cannot load enemies: ERR");
-            e.printStackTrace();
-        }
 
         player.healthBar.getImages().forEach(uiStage::addActor);
-
         stage.addActor(player);
 
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
