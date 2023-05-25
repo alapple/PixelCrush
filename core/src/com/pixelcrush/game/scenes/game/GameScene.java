@@ -2,6 +2,7 @@ package com.pixelcrush.game.scenes.game;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -40,18 +41,17 @@ public class GameScene extends ScreenAdapter {
         ScreenViewport svp = new ScreenViewport(camera.getInternalCamera());
         svp.setUnitsPerPixel(1 / Globals.UNITS_PER_PIXEL);
         stage = new Stage(svp);
-        Gdx.input.setInputProcessor(stage);
+        stage.addActor(player);
 
         uiStage = new Stage(new ScreenViewport());
-
-        debugRenderer = new ShapeRenderer();
+        Gdx.input.setInputProcessor(new InputMultiplexer(stage, uiStage));
 
         player.healthBar.getImages().forEach(uiStage::addActor);
-        stage.addActor(player);
+        debugUI = new DebugUI(uiStage);
+        debugRenderer = new ShapeRenderer();
 
         enemyManager.loadStageEnemies(new com.pixelcrush.game.scenes.game.enemy.Stage(1, 3, 10));
         enemyManager.spawnEnemies();
-        debugUI = new DebugUI(stage);
     }
 
     @Override
