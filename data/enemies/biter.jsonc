@@ -14,5 +14,6 @@
   "attackRadius": 1000,
   "stopRadius": 0.35,
   "followRadius": 16,
+  "groupFollowCircle": 4,
   "stayAttachedAfterFirstContact": false
 }

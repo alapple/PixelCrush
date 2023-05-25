@@ -19,6 +19,7 @@ public class SerializedEnemy {
     public float attackRadius;
     public float stopRadius;
     public float followRadius;
+    public float groupFollowCircle;
     public boolean stayAttachedAfterFirstContact;
 
     public Enemy toEnemy() {

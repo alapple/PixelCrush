@@ -15,10 +15,12 @@ public class Enemy {
     private Vector2 position = new Vector2();
     private Circle playerDetectionBounds;
     private Circle startAttackBounds;
+    private Circle groupFollowBounds;
     private TextureAtlas atlas;
     private Sprite sprite;
     private float timeSinceLastDamage = 0;
     private int id = -1;
+    private boolean followingPlayer;
 
     public Enemy(SerializedEnemy data) {
         this.data = data;
@@ -28,6 +30,7 @@ public class Enemy {
 
         playerDetectionBounds = new Circle(position, data.followRadius);
         startAttackBounds = new Circle(position, data.stopRadius);
+        groupFollowBounds = new Circle(position, data.groupFollowCircle);
     }
 
     public Circle getStartAttackBounds() {
@@ -36,6 +39,9 @@ public class Enemy {
 
     public Circle getPlayerDetectionBounds() {
         return playerDetectionBounds;
+    }
+    public Circle getGroupFollowBounds() {
+        return groupFollowBounds;
     }
 
     public void spawn(int id) {
@@ -47,15 +53,27 @@ public class Enemy {
         return sprite;
     }
 
+    public boolean isFollowingPlayer() {
+        return followingPlayer;
+    }
+
     public void updatePosition(float delta) {
         timeSinceLastDamage += delta;
         float velocity = (data.speed + speedModifier) * delta;
 
+        boolean followingEnemyInCloseRange = false;
+        for (Enemy enemy : EnemyManager.getInstance().enemies) {
+            followingEnemyInCloseRange = enemy.isFollowingPlayer() && Intersector.overlaps(groupFollowBounds, enemy.getStartAttackBounds());
+        }
+        System.out.printf("Enemy %d: followingEnemyInCloseRange: %b%n", id, followingEnemyInCloseRange);
+
         Rectangle playerBounds = GameScene.player.getPlayerBounds();
+        followingPlayer = Intersector.overlaps(playerDetectionBounds, playerBounds);
+
         if (Intersector.overlaps(startAttackBounds, playerBounds) && timeSinceLastDamage > 3) {
             timeSinceLastDamage -= 3f;
             damagePlayer();
-        } else if (Intersector.overlaps(playerDetectionBounds, playerBounds)) {
+        } else if (followingPlayer || followingEnemyInCloseRange) {
             Vector2 enemyPos = new Vector2(position);
             Vector2 playerPos = new Vector2(GameScene.player.position);
             Vector2 direction = new Vector2();
@@ -72,6 +90,7 @@ public class Enemy {
         sprite.setOriginBasedPosition(position.x, position.y);
         playerDetectionBounds.setPosition(position);
         startAttackBounds.setPosition(position);
+        groupFollowBounds.setPosition(position);
     }
 
     public void setPosition(Vector2 position) {

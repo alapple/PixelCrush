@@ -97,6 +97,10 @@ public class GameScene extends ScreenAdapter {
             Circle enemyStopDetection = enemy.getStartAttackBounds();
             debugRenderer.setColor(Color.PURPLE);
             debugRenderer.circle(enemyStopDetection.x, enemyStopDetection.y, enemyStopDetection.radius, 30);
+
+            Circle enemyGroupFollowBounds = enemy.getGroupFollowBounds();
+            debugRenderer.setColor(Color.PINK);
+            debugRenderer.circle(enemyGroupFollowBounds.x, enemyGroupFollowBounds.y, enemyGroupFollowBounds.radius, 30);
         });
 
         debugRenderer.setColor(Color.YELLOW);
