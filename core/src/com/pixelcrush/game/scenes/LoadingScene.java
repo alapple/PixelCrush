@@ -14,6 +14,7 @@ import com.badlogic.gdx.video.VideoPlayerCreator;
 import com.pixelcrush.game.DebugConfig;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.GameScene;
+import com.pixelcrush.game.scenes.game.Player;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 import java.io.FileNotFoundException;
@@ -25,6 +26,13 @@ public class LoadingScene extends ScreenAdapter {
     private TiledMap map;
 
     public LoadingScene() {
+        videoPlayer.setOnCompletionListener(file -> videoCompleted = true);
+        try {
+            videoPlayer.play(Gdx.files.internal("other/loading/anim.ogv"));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         PixelCrushCore.manager.load("output/player.atlas", TextureAtlas.class);
         PixelCrushCore.manager.load("output/heart.atlas", TextureAtlas.class);
         PixelCrushCore.manager.load("data/uiskin.json", Skin.class);
@@ -36,13 +44,7 @@ public class LoadingScene extends ScreenAdapter {
             System.err.println("cannot load enemies: ERR");
             e.printStackTrace();
         }
-
-        videoPlayer.setOnCompletionListener(file -> videoCompleted = true);
-        try {
-            videoPlayer.play(Gdx.files.internal("other/loading/anim.ogv"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        Player.getInstance().loadPlayerData();
     }
 
     @Override

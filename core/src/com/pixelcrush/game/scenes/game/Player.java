@@ -15,13 +15,14 @@ import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
 public class Player extends Actor {
+    private static Player INSTANCE;
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
 
     private static float walkSpeed = WALK_SPEED;
     private static float runSpeed = RUN_SPEED;
     private static float pathSpeedModifier = 2;
-    private final TextureAtlas atlas;
+    private TextureAtlas atlas;
     public float activeSpeedModifier = 0;
     public Sprite sprite = new Sprite();
     public Vector2 position = new Vector2(0, 0);
@@ -29,20 +30,14 @@ public class Player extends Actor {
     public Rectangle bounds;
     public BaseBow bow;
 
-    public Player() {
-        try {
-            String jsonString = Gdx.files.internal("data/playerData.json").readString();
-            SerializedPlayerData playerData = new Gson().fromJson(jsonString, SerializedPlayerData.class);
-            walkSpeed = playerData.walkSpeed;
-            runSpeed = playerData.runSpeed;
-            pathSpeedModifier = playerData.pathSpeedModifier;
-        } catch (GdxRuntimeException gre) {
-            gre.printStackTrace();
-            System.err.println("Unable to load data/playerData.json. Please verify that the file exists and is encoded in the correct format!");
-        } catch (JsonSyntaxException jse) {
-            System.err.println("data/playerData.json was loaded correctly but couldn't be parsed by the JSON parser. Please verify that the file content is valid JSON and contains all needed key-value pairs");
-        }
+    public synchronized static Player getInstance() {
+        if (INSTANCE == null) INSTANCE = new Player();
+        return INSTANCE;
+    }
 
+    private Player() {}
+
+    public void spawn() {
         atlas = PixelCrushCore.manager.get("output/player.atlas");
         healthBar = new HealthBar();
 
@@ -60,6 +55,21 @@ public class Player extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         sprite.draw(batch);
+    }
+
+    public void loadPlayerData() {
+        try {
+            String jsonString = Gdx.files.internal("data/playerData.json").readString();
+            SerializedPlayerData playerData = new Gson().fromJson(jsonString, SerializedPlayerData.class);
+            walkSpeed = playerData.walkSpeed;
+            runSpeed = playerData.runSpeed;
+            pathSpeedModifier = playerData.pathSpeedModifier;
+        } catch (GdxRuntimeException gre) {
+            gre.printStackTrace();
+            System.err.println("Unable to load data/playerData.json. Please verify that the file exists and is encoded in the correct format!");
+        } catch (JsonSyntaxException jse) {
+            System.err.println("data/playerData.json was loaded correctly but couldn't be parsed by the JSON parser. Please verify that the file content is valid JSON and contains all needed key-value pairs");
+        }
     }
 
     public void handleInput(float delta) {

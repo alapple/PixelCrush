@@ -22,7 +22,7 @@ import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
     private final Camera camera;
-    public static Player player = null;
+    public static Player player = Player.getInstance();
     private final Stage stage;
     private final Stage uiStage;
     private final OrthogonalTiledMapRenderer mapRenderer;
@@ -34,7 +34,7 @@ public class GameScene extends ScreenAdapter {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
 
-        player = new Player();
+        player.spawn();
         camera = new Camera();
 
         ScreenViewport svp = new ScreenViewport(camera.getInternalCamera());
