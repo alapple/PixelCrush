@@ -52,7 +52,7 @@ public class LoadingScene extends ScreenAdapter {
         ScreenUtils.clear(0, 0, 0, 1);
 
         if (PixelCrushCore.manager.update() && (videoCompleted || DebugConfig.SKIP_LOADING)) {
-            PixelCrushCore.INSTANCE.setScreen(new GameScene(map));
+            PixelCrushCore.INSTANCE.setScreen(GameScene.setInstance(map));
             return;
         }
 

@@ -22,6 +22,7 @@ import com.pixelcrush.game.scenes.game.enemy.Enemy;
 import com.pixelcrush.game.scenes.game.enemy.EnemyManager;
 
 public class GameScene extends ScreenAdapter {
+    private static GameScene INSTANCE;
     public static Player player = Player.getInstance();
     private final Camera camera;
     private final Stage stage;
@@ -31,7 +32,17 @@ public class GameScene extends ScreenAdapter {
     private final EnemyManager enemyManager = EnemyManager.getInstance();
     private final DebugUI debugUI;
 
-    public GameScene(TiledMap map) {
+    public static GameScene setInstance(TiledMap map) {
+        if (INSTANCE != null) throw new RuntimeException("Cannot set instance. Already has an instance!");
+        INSTANCE = new GameScene(map);
+        return INSTANCE;
+    }
+    public static GameScene getInstance() {
+        if (INSTANCE == null) throw new RuntimeException("instance has to be set first!");
+        return INSTANCE;
+    }
+
+    private GameScene(TiledMap map) {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
         mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f);
 
