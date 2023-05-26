@@ -4,16 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.pixelcrush.game.DebugConfig;
-import com.pixelcrush.game.PixelCrushCore;
+import com.pixelcrush.game.UIHolder;
 
 public class DebugUI {
-    private final Skin uiSkin = PixelCrushCore.manager.get("data/ui/uiskin.json");
-    private final Label fpsLabel = new Label("Collecting...", uiSkin);
-    private final TextButton showDebugButton = new TextButton("Show Debug UI", uiSkin, "toggle");
+    private final Label fpsLabel = new Label("Collecting...", UIHolder.getInstance().UI_SKIN);
+    private final TextButton showDebugButton = new TextButton("Show Debug UI", UIHolder.getInstance().UI_SKIN, "toggle");
 
     public DebugUI(Stage stage) {
         showDebugButton.setChecked(DebugConfig.DEBUG_RENDER);
