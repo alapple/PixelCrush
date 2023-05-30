@@ -36,11 +36,11 @@ public class HealthManager {
 
     public ArrayList<Image> getImages() {
         ArrayList<Image> images = new ArrayList<>();
-        ArrayList<Sprite> heartsSprites = getHeartsSprites();
+        Sprite[] heartsSprites = getHeartsSprites();
 
         float lastX = 10;
-        for (int i = 0; i < heartsSprites.size(); i++) {
-            Sprite sprite = heartsSprites.get(i);
+        for (int i = 0; i < heartsSprites.length; i++) {
+            Sprite sprite = heartsSprites[i];
             Image img = new Image(sprite);
 
             img.setScaling(Scaling.contain);
@@ -56,21 +56,17 @@ public class HealthManager {
         return images;
     }
 
-    public ArrayList<Sprite> getHeartsSprites() {
-        ArrayList<Sprite> hearts = new ArrayList<>();
+    public Sprite[] getHeartsSprites() {
+        float downScaledNum = (maxHealth / 2f) * health / 10f;
+        Sprite[] hearts = new Sprite[(int) (maxHealth / 2)];
+        int heartsPointer = 0;
 
-        for (int i = 0; i < Math.floor(health / 2f); i++) {
-            hearts.add(fullHeart);
+        for (int i = 0; i < Math.floor(downScaledNum); i++) {
+            hearts[heartsPointer] = fullHeart;
+            heartsPointer++;
         }
-        if (health % 2 == 0) hearts.add(halfHeart);
-        /*for (int i = 0; i < maxHealth; i++) {
-            if (i + 1 < hearts.size() || i + 1 > hearts.size()) continue;
-            if (hearts.get(i) == null) hearts.add(fullHeart);
-        }*/
-
-        for (int i = 0; i < health; i++) {
-            if (hearts.size() < i) hearts.add(emptyHeart);
-        }
+        if (downScaledNum % 1 != 0) hearts[heartsPointer] = halfHeart;
+        for (int i = 0; i < hearts.length; i++) if (hearts[i] == null) hearts[i] = emptyHeart;
         return hearts;
     }
 
@@ -80,10 +76,10 @@ public class HealthManager {
         sb.append("maxHealth=").append(maxHealth);
         sb.append(", health=").append(health);
         sb.append(", hearts=[");
-        ArrayList<Sprite> heartsSprites = getHeartsSprites();
-        for (int i = 0; i < heartsSprites.size(); i++) {
-            Sprite heart = heartsSprites.get(i);
-            sb.append(heart.getTexture().toString()).append(i == heartsSprites.size() - 1 ? "" : ", ");
+        Sprite[] heartsSprites = getHeartsSprites();
+        for (int i = 0; i < heartsSprites.length; i++) {
+            Sprite heart = heartsSprites[i];
+            sb.append(heart.getTexture().toString()).append(i == heartsSprites.length - 1 ? "" : ", ");
         }
         sb.append("]}");
         return sb.toString();

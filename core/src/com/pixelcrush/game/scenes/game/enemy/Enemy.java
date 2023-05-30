@@ -61,14 +61,13 @@ public class Enemy {
         timeSinceLastDamage += delta;
         float velocity = (data.speed + speedModifier) * delta;
 
+        Rectangle playerBounds = GameScene.player.getPlayerBounds();
+        followingPlayer = Intersector.overlaps(playerDetectionBounds, playerBounds);
+
         boolean followingEnemyInCloseRange = false;
         for (Enemy enemy : EnemyManager.getInstance().enemies) {
             followingEnemyInCloseRange = enemy.isFollowingPlayer() && Intersector.overlaps(groupFollowBounds, enemy.getStartAttackBounds());
         }
-        System.out.printf("Enemy %d: followingEnemyInCloseRange: %b%n", id, followingEnemyInCloseRange);
-
-        Rectangle playerBounds = GameScene.player.getPlayerBounds();
-        followingPlayer = Intersector.overlaps(playerDetectionBounds, playerBounds);
 
         if (Intersector.overlaps(startAttackBounds, playerBounds) && timeSinceLastDamage > 3) {
             timeSinceLastDamage -= 3f;
