@@ -14,6 +14,8 @@ import com.google.gson.JsonSyntaxException;
 import com.pixelcrush.game.PixelCrushCore;
 import com.pixelcrush.game.scenes.game.weapons.BaseBow;
 
+import java.util.HashMap;
+
 public class Player extends Actor {
     public static final float WALK_SPEED = 6;
     public static final float RUN_SPEED = 12;
@@ -27,7 +29,7 @@ public class Player extends Actor {
     public HealthManager healthManager;
     public Rectangle bounds;
     public BaseBow bow;
-    private TextureAtlas atlas;
+    private HashMap<String, TextureAtlas.AtlasRegion> textureRegions = new HashMap<>();
 
     private Player() {
     }
@@ -38,7 +40,12 @@ public class Player extends Actor {
     }
 
     public void spawn() {
-        atlas = PixelCrushCore.manager.get("output/player.atlas");
+        TextureAtlas atlas = PixelCrushCore.manager.get("output/player.atlas");
+        textureRegions.put("up", atlas.findRegion("up"));
+        textureRegions.put("down", atlas.findRegion("down"));
+        textureRegions.put("left", atlas.findRegion("left"));
+        textureRegions.put("right", atlas.findRegion("right"));
+        textureRegions.put("idle", atlas.findRegion("idle"));
         healthManager = new HealthManager();
 
         // handleinput has to be called once so idle is applied
@@ -85,18 +92,18 @@ public class Player extends Actor {
             position.y += velocity / 2 * (sPressed ? -1 : 1);
             position.x += velocity / 2 * (aPressed ? -1 : 1);
         } else if (wPressed) {
-            sprite.setRegion(atlas.findRegion("up"));
+            sprite.setRegion(textureRegions.get("up"));
             position.y += velocity;
         } else if (sPressed) {
-            sprite.setRegion(atlas.findRegion("down"));
+            sprite.setRegion(textureRegions.get("down"));
             position.y -= velocity;
         } else if (aPressed) {
-            sprite.setRegion(atlas.findRegion("left"));
+            sprite.setRegion(textureRegions.get("left"));
             position.x -= velocity;
         } else if (dPressed) {
-            sprite.setRegion(atlas.findRegion("right"));
+            sprite.setRegion(textureRegions.get("right"));
             position.x += velocity;
-        } else sprite = atlas.createSprite("idle");
+        } else sprite.setRegion(textureRegions.get("idle"));
 
         sprite.setCenter(sprite.getWidth() / 2f, sprite.getHeight() / 2f);
         sprite.setPosition(position.x, position.y);
@@ -122,6 +129,5 @@ public class Player extends Actor {
     }
 
     public void dispose() {
-        atlas.dispose();
     }
 }
