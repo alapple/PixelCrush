@@ -4,19 +4,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.PixelCrushCore;
 
+import java.util.HashMap;
+
 public class HealthManager {
     private final int maxHealth = 10;
     private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
     private int health = maxHealth;
-    private TextureAtlas.AtlasRegion emptyHeart;
-    private TextureAtlas.AtlasRegion halfHeart;
-    private TextureAtlas.AtlasRegion fullHeart;
+    private HashMap<String, TextureAtlas.AtlasRegion> heartRegions = new HashMap<>();
     private HeartState[] heartStates = new HeartState[maxHealth / 2];
 
     public HealthManager() {
-        emptyHeart = atlas.findRegion("heart-empty");
-        halfHeart = atlas.findRegion("heart-half");
-        fullHeart = atlas.findRegion("heart-full");
+        heartRegions.put("empty", atlas.findRegion("heart-empty"));
+        heartRegions.put("half", atlas.findRegion("heart-half"));
+        heartRegions.put("full", atlas.findRegion("heart-full"));
         updateHeartStates();
     }
 
@@ -67,9 +67,9 @@ public class HealthManager {
     }
 
     public TextureAtlas.AtlasRegion getTextureRegionForState(HeartState heartState) {
-        if (heartState == HeartState.FULL) return fullHeart;
-        else if (heartState == HeartState.HALF) return halfHeart;
-        return emptyHeart;
+        if (heartState == HeartState.FULL) return heartRegions.get("full");
+        else if (heartState == HeartState.HALF) return heartRegions.get("half");
+        return heartRegions.get("empty");
     }
 
     public HeartState getHeartState(int heartIndex) {
