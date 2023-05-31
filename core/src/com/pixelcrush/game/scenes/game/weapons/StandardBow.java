@@ -1,13 +1,17 @@
 package com.pixelcrush.game.scenes.game.weapons;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.pixelcrush.game.PixelCrushCore;
+import com.pixelcrush.game.scenes.game.Camera;
+import com.pixelcrush.game.scenes.game.GameScene;
 import com.pixelcrush.game.scenes.game.Player;
 
 public class StandardBow extends SerializedBaseBow implements BaseBow {
@@ -21,6 +25,8 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
     TextureRegion region;
     Player player;
     private Animation<TextureRegion> drawBowAnimation;
+    GameScene INSTANCE;
+    Camera camera;
 
 
     public StandardBow(SerializedBaseBow data) {
@@ -54,10 +60,17 @@ public class StandardBow extends SerializedBaseBow implements BaseBow {
     }
 
     @Override
-    public void shoot() {
+    public void shoot(float delta){
         boolean isRightMuseButtonPressed = Gdx.input.isButtonPressed(2);
-        if (isRightMuseButtonPressed) {
+        if(isRightMuseButtonPressed) {
             createAnimation();
         }
+    }
+
+    public void aim(OrthographicCamera camera){
+        Vector3 mousePos = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        Vector3 bowPos = new Vector3(position.x, position.y, 0);
+        float radians = (float)Math.atan2(mousePos.y - bowPos.y, mousePos.x - bowPos.x);
+        //this.INSTANCE.transform.setFromEulerAnglesRad(0, 0, radians).setTranslation(bowPos);
     }
 }
