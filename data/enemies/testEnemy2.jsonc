@@ -15,7 +15,7 @@
     "left": "top-down-view/left",
     "right": "top-down-view/right"
   },
-  "damage": 1.2,
+  "damage": 1,
   "attackType": "MELEE",
   "rechargeTime": 2,
   "attackRadius": 1000,
