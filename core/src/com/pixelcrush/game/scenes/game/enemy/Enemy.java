@@ -69,9 +69,11 @@ public class Enemy {
             followingEnemyInCloseRange = enemy.isFollowingPlayer() && Intersector.overlaps(groupFollowBounds, enemy.getStartAttackBounds());
         }
 
-        if (Intersector.overlaps(startAttackBounds, playerBounds) && timeSinceLastDamage > 3) {
-            timeSinceLastDamage -= 3f;
-            damagePlayer();
+        if (Intersector.overlaps(startAttackBounds, playerBounds)) {
+            if (timeSinceLastDamage > 3) {
+                timeSinceLastDamage -= 3f;
+                damagePlayer();
+            }
         } else if (followingPlayer || followingEnemyInCloseRange) {
             Vector2 enemyPos = new Vector2(position);
             Vector2 playerPos = new Vector2(GameScene.player.position);
