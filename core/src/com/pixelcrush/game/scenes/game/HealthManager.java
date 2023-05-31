@@ -1,26 +1,23 @@
 package com.pixelcrush.game.scenes.game;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.math.Vector2;
 import com.pixelcrush.game.PixelCrushCore;
-
-import java.util.ArrayList;
 
 public class HealthManager {
     private final int maxHealth = 10;
     private final TextureAtlas atlas = PixelCrushCore.manager.get("output/heart.atlas");
     private int health = maxHealth;
-    private Sprite emptyHeart = new Sprite();
-    private Sprite halfHeart = new Sprite();
-    private Sprite fullHeart = new Sprite();
-
+    private TextureAtlas.AtlasRegion emptyHeart;
+    private TextureAtlas.AtlasRegion halfHeart;
+    private TextureAtlas.AtlasRegion fullHeart;
+    private HeartState[] heartStates = new HeartState[maxHealth / 2];
 
     public HealthManager() {
-        emptyHeart = atlas.createSprite("heart-empty");
-        halfHeart = atlas.createSprite("heart-half");
-        fullHeart = atlas.createSprite("heart-full");
+        emptyHeart = atlas.findRegion("heart-empty");
+        halfHeart = atlas.findRegion("heart-half");
+        fullHeart = atlas.findRegion("heart-full");
+        updateHeartStates();
     }
 
     public int getHealth() {
@@ -29,45 +26,54 @@ public class HealthManager {
 
     public void damage(float amount) {
         health -= amount;
+        updateHeartStates();
+        System.out.println(this);
         if (health <= 0) {
             GameScene.player.die();
         }
     }
 
-    public ArrayList<Image> getImages() {
-        ArrayList<Image> images = new ArrayList<>();
-        Sprite[] heartsSprites = getHeartsSprites();
+    public Heart[] initHearts() {
+        updateHeartStates();
 
-        float lastX = 10;
-        for (int i = 0; i < heartsSprites.length; i++) {
-            Sprite sprite = heartsSprites[i];
-            Image img = new Image(sprite);
-
-            img.setScaling(Scaling.contain);
-            img.scaleBy(3.7f);
-            img.setPosition(i == 0 ? lastX : lastX + img.getWidth() + 35, 10);
-
-            images.add(img);
-
-            lastX += img.getX() - lastX;
+        Vector2 position = new Vector2(0, 10);
+        Heart[] hearts = new Heart[maxHealth / 2];
+        for (int i = 0; i < heartStates.length; i++) {
+            position.x = 40 * i + 10;
+            hearts[i] = new Heart(i, new Vector2(position.x, position.y), 33);
         }
 
-        System.out.println(this);
-        return images;
+        return hearts;
     }
 
-    public Sprite[] getHeartsSprites() {
+    public void updateHeartStates() {
         float downScaledNum = (maxHealth / 2f) * health / 10f;
-        Sprite[] hearts = new Sprite[(int) (maxHealth / 2)];
         int heartsPointer = 0;
 
         for (int i = 0; i < Math.floor(downScaledNum); i++) {
-            hearts[heartsPointer] = fullHeart;
+            heartStates[heartsPointer] = HeartState.FULL;
             heartsPointer++;
         }
-        if (downScaledNum % 1 != 0) hearts[heartsPointer] = halfHeart;
-        for (int i = 0; i < hearts.length; i++) if (hearts[i] == null) hearts[i] = emptyHeart;
-        return hearts;
+        if (downScaledNum % 1 != 0) {
+            heartStates[heartsPointer] = HeartState.HALF;
+            heartsPointer++;
+        }
+        for (int i = 0; i < heartStates.length; i++) {
+            if (i >= heartsPointer) {
+                heartStates[heartsPointer] = HeartState.EMPTY;
+                heartsPointer++;
+            }
+        }
+    }
+
+    public TextureAtlas.AtlasRegion getTextureRegionForState(HeartState heartState) {
+        if (heartState == HeartState.FULL) return fullHeart;
+        else if (heartState == HeartState.HALF) return halfHeart;
+        return emptyHeart;
+    }
+
+    public HeartState getHeartState(int heartIndex) {
+        return heartStates[heartIndex];
     }
 
     @Override
@@ -76,10 +82,9 @@ public class HealthManager {
         sb.append("maxHealth=").append(maxHealth);
         sb.append(", health=").append(health);
         sb.append(", hearts=[");
-        Sprite[] heartsSprites = getHeartsSprites();
-        for (int i = 0; i < heartsSprites.length; i++) {
-            Sprite heart = heartsSprites[i];
-            sb.append(heart.getTexture().toString()).append(i == heartsSprites.length - 1 ? "" : ", ");
+        for (int i = 0; i < heartStates.length; i++) {
+            sb.append(heartStates[i]);
+            if (i + 1 != heartStates.length) sb.append(", ");
         }
         sb.append("]}");
         return sb.toString();

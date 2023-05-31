@@ -57,7 +57,7 @@ public class GameScene extends ScreenAdapter {
         uiStage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(new InputMultiplexer(stage, uiStage));
 
-        player.healthManager.getImages().forEach(uiStage::addActor);
+        for (Heart heart : player.healthManager.initHearts()) uiStage.addActor(heart);
         debugUI = new DebugUI(uiStage);
         debugRenderer = new ShapeRenderer();
 
@@ -76,6 +76,7 @@ public class GameScene extends ScreenAdapter {
         mapRenderer.setView(camera.getInternalCamera());
         mapRenderer.render();
 
+        uiStage.act(delta);
         stage.act(delta);
         stage.getBatch().begin();
         enemyManager.enemySprites.forEach(sprite -> sprite.draw(stage.getBatch()));
