@@ -39,7 +39,7 @@ public class EnemyManager {
         }
 
         Random rng = new Random();
-        int upperBoundEnemyType = enemyTypes.size() - 1;
+        int upperBoundEnemyType = enemyTypes.size();
         while (true) {
             if (stage.maxEnemies() <= enemies.size()) break;
             if (stage.minEnemies() <= enemies.size() && rng.nextBoolean()) break;

@@ -7,15 +7,15 @@
     0.1
   ],
   "name": "Biter",
-  "textureAtlasPath": "assets/output/zombie.atlas",
+  "textureAtlasPath": "assets/output/skeleton.atlas",
   "textureRegions": {
     "idle": "top-down-view/up",
     "up": "top-down-view/up",
     "down": "top-down-view/down",
-    "left": "left/00",
-    "right": "right/00"
+    "left": "top-down-view/left",
+    "right": "top-down-view/right"
   },
-  "damage": 2,
+  "damage": 1.2,
   "attackType": "MELEE",
   "rechargeTime": 2,
   "attackRadius": 1000,

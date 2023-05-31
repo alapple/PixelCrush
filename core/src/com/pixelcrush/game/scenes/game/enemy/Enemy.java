@@ -25,8 +25,8 @@ public class Enemy {
     public Enemy(SerializedEnemy data) {
         this.data = data;
         atlas = new TextureAtlas(Gdx.files.internal(data.textureAtlasPath));
-        sprite = atlas.createSprite("attack-top-down-view/down/00");
-        sprite.setSize(.5f, 1);
+        sprite = atlas.createSprite(data.textureRegions.idle);
+        sprite.setSize(1, 1);
 
         playerDetectionBounds = new Circle(position, data.followRadius);
         startAttackBounds = new Circle(position, data.stopRadius);
